@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刪除帳號與資料 — 迷迷 mimi</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1a1a; --muted:#5a5a5a; --line:#e2e2e2;
+    --accent:#8a6d00; --box:#f7f7f5;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0f0f12; --fg:#ececec; --muted:#a5a5a5; --line:#2b2b31;
+           --accent:#f5c518; --box:#17171c; }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC",
+                "Microsoft JhengHei",sans-serif;
+    line-height:1.75; font-size:17px;
+  }
+  main{max-width:720px; margin:0 auto; padding:32px 20px 72px}
+  h1{font-size:26px; line-height:1.4; margin:0 0 4px}
+  h2{font-size:19px; margin:36px 0 10px; padding-top:20px; border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:0; padding-top:0}
+  p,li{color:var(--fg)}
+  .meta{color:var(--muted); font-size:14px; margin:0 0 28px}
+  .summary{
+    background:var(--box); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px; margin:0 0 32px; font-size:15px; line-height:1.65;
+  }
+  .summary h2{font-size:15px; margin:0 0 8px; border:0; padding:0; letter-spacing:.04em;
+              text-transform:uppercase; color:var(--muted)}
+  .summary p{margin:0 0 8px}
+  .summary p:last-child{margin-bottom:0}
+  ul{padding-left:1.25em}
+  li{margin:6px 0}
+  a{color:var(--accent)}
+  code{background:var(--box); padding:2px 6px; border-radius:5px; font-size:.92em}
+  .note{color:var(--muted); font-size:14.5px}
+  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line);
+         color:var(--muted); font-size:14px}
+</style>
+</head>
+<body>
+<main>
+
+  <h1>刪除帳號與資料</h1>
+  <p class="meta">迷迷 mimi ・ 營運者 Bitter DEV ・ 更新日期:2026 年 8 月 14 日</p>
+
+  <!-- 英文摘要:審核員多半不讀中文,一段摘要是便宜的保險 -->
+  <div class="summary">
+    <h2>Summary (English)</h2>
+    <p><strong>App:</strong> 迷迷 (mimi) — developer <strong>Bitter DEV</strong>.</p>
+    <p><strong>How to request deletion.</strong> In the app, open your profile page and choose
+      “Delete account”. You can also email
+      <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a> from the address
+      registered to your account. We handle requests within 15 days.</p>
+    <p><strong>What is deleted.</strong> Your account and personal data, and the content you
+      published — tickets and photos, stamp book and collectibles, posts and comments, private
+      messages, invitations and meet-up records, and in-app points. Uploaded files are removed
+      from storage.</p>
+    <p><strong>What is retained.</strong> Moderation and dispute records, and subscription and
+      billing events, are kept for accountability and accounting. These records are
+      <strong>unlinked from your account</strong>. Where a display name or email address was
+      retained for dispute verification, it is erased <strong>one year</strong> after deletion.</p>
+    <p><strong>Privacy Policy:</strong>
+      <a href="https://mimicinephile.github.io/mimi-privacy/">mimicinephile.github.io/mimi-privacy/</a></p>
+  </div>
+
+  <h2>一、在 App 裡刪除</h2>
+  <p>
+    開啟迷迷 App,到<strong>個人頁</strong>,選擇<strong>「刪除帳號」</strong>,
+    依畫面指示完成確認即可。刪除會立即執行。
+  </p>
+  <p class="note">
+    如果你目前有尚未裁定的申訴或赴約爭議,系統會暫時保留帳號並在畫面上說明原因 ——
+    裁定需要雙方的紀錄都在。裁定完成後即可刪除。
+  </p>
+
+  <h2>二、用 email 申請刪除</h2>
+  <p>
+    不方便使用 App(例如已經移除 App、或無法登入)時,請從<strong>你註冊時使用的 email</strong>
+    寄信到 <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a>,
+    信件主旨寫「刪除帳號」。
+  </p>
+  <p>
+    我們會在 <strong>15 天內</strong>處理。為了避免誤刪他人帳號,我們可能會回信確認身分。
+  </p>
+
+  <h2>三、會刪除的資料</h2>
+  <ul>
+    <li>帳號與個人資料(email、暱稱、生日與性別等)</li>
+    <li>票根與你上傳的票根照片</li>
+    <li>集章冊、盲盒收藏與願望清單</li>
+    <li>論壇的貼文、留言與投票</li>
+    <li>私人訊息</li>
+    <li>邀約、配對與赴約紀錄</li>
+    <li>爆米花與貢獻點數</li>
+    <li>推播通知的裝置權杖</li>
+  </ul>
+  <p class="note">
+    你上傳的檔案(票根照片、貼文圖片、身分驗證文件)會一併從儲存空間刪除。
+  </p>
+
+  <h2>四、會保留的紀錄與保留期限</h2>
+  <p>
+    下列紀錄基於帳務義務與平台安全問責而保留。
+    它們<strong>會與你的帳號解除連結</strong>,不再指向你本人:
+  </p>
+  <ul>
+    <li><strong>管理員的處置與申訴紀錄</strong></li>
+    <li><strong>赴約爭議的回報與裁定紀錄</strong></li>
+    <li><strong>訂閱與交易的帳務事件</strong></li>
+    <li><strong>管理員調閱私訊的稽核紀錄</strong>(該紀錄本身依設計不可刪改)</li>
+  </ul>
+  <p>
+    其中,為了讓已成立的裁定日後仍查證得到,我們會在刪除當下保留一份
+    <strong>當時的暱稱與 email</strong>。這份資料自帳號刪除日起
+    <strong>保留一年,期滿後清除</strong>;清除後該紀錄不再包含任何可識別你的資訊。
+  </p>
+  <p class="note">
+    另外,私人訊息與訂閱事件的原始內容各自有 180 天的保存期限,詳見隱私權政策。
+  </p>
+
+  <h2>五、相關連結</h2>
+  <ul>
+    <li><a href="https://mimicinephile.github.io/mimi-privacy/">隱私權政策</a></li>
+    <li>個資與資料相關詢問:<a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a></li>
+  </ul>
+
+  <footer>
+    迷迷 mimi ・ Bitter DEV ・ mimicinephile@gmail.com
+  </footer>
+
+</main>
+</body>
+</html>
