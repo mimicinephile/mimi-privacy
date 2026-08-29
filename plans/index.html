@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方案與權益 — 迷迷 mimi</title>
+<meta name="description" content="迷迷 mimi 的免費、L1 影迷、L2 首映三種方案各拿得到什麼、多少錢，一頁看懂。">
+<link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/plans/">
+
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  迷迷權益比較頁 /plans/
+  對應 docs/權益比較頁-plans-PRD-v1-2026-08-28.md（PM 出稿）
+       docs/權益比較頁-對帳清單-2026-08-28.md（逐格對帳，本頁每個數字的出處）
+
+  ── 部署 ────────────────────────────────────────────────────────────────
+  本資料夾整包複製到 mimi-privacy repo 的 plans/ 後 push。
+  正式網址 https://mimicinephile.github.io/mimi-privacy/plans/
+  🔺 產品負責人裁定：與 /guide/ **同一次 push 一起上**，不留 404 窗口
+     —— 兩頁互相用相對路徑連（../guide/ 與 ../plans/）。
+
+  ── 外部相依：零 ────────────────────────────────────────────────────────
+  🔑 這一頁**一個外部請求都沒有**（PRD 驗收⑤）。/guide/ 用了四個 CDN 套件，
+     這一頁不需要：比較表是原生 table、摺疊是原生 details、圖示是行內 SVG。
+     ⚠ 要加任何東西之前先想清楚：驗收條件是「零外部請求」，加一個 CDN 就破了。
+  ⚠ 字型沿用 verified / reset / guide 那組本機堆疊，不引任何線上字型服務。
+
+  ── 追蹤 ────────────────────────────────────────────────────────────────
+  ⚠ 不接任何 API、不埋任何分析。頁面不收集資料，隱私政策免改。
+
+  ── 數字從哪裡來 ────────────────────────────────────────────────────────
+  🔴 **權益數字的真相在 app_settings，不在 migration 的 insert，
+     也不在 app/src/lib/subscription.ts 的 BENEFITS_*（那只是文案）。**
+     要重查跑：
+       select key, value #>> '{}', description from app_settings order by key;
+     逐格出處見 docs/權益比較頁-對帳清單-2026-08-28.md。
+
+  ── 兩條鐵律（產品負責人 2026-08-28 升格）─────────────────────────────
+  1. **全層級相同的項目不得放進三欄比較表** —— 放進去會讓人以為有差別。
+     這類項目集中在「三種方案都有」那一節。
+  2. **未開放／未實作的權益不上表，連「規劃中」都不寫** —— 網頁只寫現在拿得到的。
+     依這一條，本頁**不提**第 4 個裝飾錨點、L1/L2 頭像框、進階年度報告。
+     ⚠ 加場包原本也在這份名單上（對帳當下開關還是 false）；
+       **產品負責人 2026-08-29 回報已驗過、可以正常購買**，所以補上表與 FAQ。
+     ⚠ 「廣告」那一列是這條鐵律的**刻意例外**，理由寫在該列的註解裡
+       —— 鐵律擋的是「把還沒有的好處寫成有」，預先揭露的方向相反。
+
+  ── 措辭紅線 ────────────────────────────────────────────────────────────
+  🔴 **全頁禁用詞清單見對帳清單「措辭鐵律」那一節**（博弈與扭蛋機那一組語彙，
+     2026-08-28 又升格了兩個）。
+     🔑 **這裡刻意不把那些詞一個一個寫出來** —— 寫出來的話，「全頁搜這些詞
+        應該 0 筆」這道檢查就會搜到本註解而誤報，護欄從此失去判準
+        （同 /guide/ 對字型服務網域的處理方式，根 CLAUDE.md 有記）。
+     ✅ 對外一律用「有機會」，那是 2026-08-13 裁定的必要措辭：**池空是常態**，
+        不得用保證語氣。
+  🔴 爆米花**不可用金錢購買**，這件事要明著寫出來，不是靠沒提到。
+  🔴 舊表述紅線（把「看別人的完整收藏」講成付費層權益的那一句）**本頁不得出現**。
+     `0104` 已把那道層級門拆掉，觀看側全開放，權益留在展示側。
+     本頁是那句舊表述的檢查觸發點；同樣地，這裡不抄出原句，免得檢查誤報。
+
+  ── 狀態：上線版（2026-08-29）────────────────────────────────────────────
+  三件確認全部結案，排版稿旗標已移除：
+    ① 「小屋牆面」與「豪華票根樣式」兩列產品負責人已採用
+       （牆面那一列的寫法還由產品負責人改成「每月一款」，見該列註解）。
+    ② 隱藏款 FAQ 的解謎那條 —— 謎底與線索 2026-08-29 種入。
+       🔺 **順序是：先跑 seed_blindbox_riddles.sql，再 push 這兩頁。**
+          沒種就上線，等於對集滿的 L2 承諾一條他拿不到的線索。
+    ③ 價格三方（決策文件／Play Console／本頁）08-28 對過，一致。
+       日後調價要三邊一起改。
+
+  ⚠ 頁首那條黃色提示條的機制**留著沒拆**：下次改版又不想立刻上線時，
+    在 <html> 加回 data-build="draft" 就會再出現。
+═══════════════════════════════════════════════════════════════════════════
+-->
+
+<style>
+  /* ── Token：與 verified / reset / guide 同一組，不另開一套 ─────────── */
+  :root{
+    --bg:#F8F6F0;      /* 奶油白 */
+    --fg:#1C1B18;      /* 墨黑 */
+    --card:#FFFFFF;
+    --accent:#C8281E;  /* 磚紅。PRD 原寫的 #e50914 在奶油底上是 4.44:1，不過 AA */
+    --muted:#6B6862;
+    --line:#E8E4DA;
+    --tint:#FBF4F3;    /* L2 那一欄的淡底 */
+    --shadow:0 2px 24px rgba(28,27,24,.07);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:64px}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",
+                -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.7;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    /*
+      🔴 **必須是 clip 不能是 hidden。**
+         overflow-x:hidden 會讓 overflow-y 隱含變成 auto，body 因此成為捲動容器，
+         頂部導覽列的 position:sticky 就不再相對於視窗定位。
+         它不會報錯，只是「導覽列不見了」。（2026-08-28 在 /guide/ 實測踩過。）
+    */
+    overflow-x:clip;
+  }
+  img{max-width:100%; display:block}
+  a{color:var(--accent)}
+
+  /* ── 排版稿提示條。刪掉 html 上的 data-build 就消失 ─────────────────── */
+  .draft{display:none}
+  [data-build="draft"] .draft{
+    display:block; background:#FFF3CD; color:#5C4600;
+    border-bottom:1px solid #E8D9A0; font-size:13px; line-height:1.6;
+    padding:10px 16px; text-align:center;
+  }
+
+  /* ── 頂部錨點導覽 ─────────────────────────────────────────────────── */
+  .nav{
+    position:sticky; top:0; z-index:30;
+    background:rgba(248,246,240,.94);
+    -webkit-backdrop-filter:saturate(180%) blur(10px);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav ul{
+    display:flex; gap:4px; margin:0; padding:8px 12px; list-style:none;
+    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav a{
+    display:block; white-space:nowrap; text-decoration:none;
+    color:var(--muted); font-size:14px; font-weight:600;
+    padding:6px 12px; border-radius:999px;
+  }
+  .nav a:hover,.nav a:focus-visible{background:rgba(200,40,30,.07); color:var(--accent)}
+
+  main{max-width:860px; margin:0 auto; padding:0 20px 72px}
+
+  /* ── Hero ─────────────────────────────────────────────────────────── */
+  .hero{text-align:center; padding:40px 0 4px}
+  .hero .logo{width:72px; height:72px; margin:0 auto 18px}
+  .hero h1{font-size:26px; line-height:1.4; margin:0 0 10px; font-weight:700}
+  .hero .lede{margin:0 auto 20px; max-width:28em; color:var(--muted); font-size:16px}
+
+  .beta{
+    display:inline-block; background:var(--card); border:1px solid var(--line);
+    border-radius:12px; padding:12px 18px; box-shadow:var(--shadow);
+    font-size:14.5px; color:var(--fg); max-width:30em; text-align:left;
+  }
+  .beta strong{color:var(--accent)}
+
+  /* ── 段落 ─────────────────────────────────────────────────────────── */
+  section{padding-top:56px}
+  .sec-head{display:flex; align-items:center; gap:10px; margin:0 0 6px}
+  .sec-head svg{color:var(--accent); flex:0 0 auto}
+  .sec-head h2{font-size:20px; margin:0; font-weight:700; line-height:1.4}
+  .sec-lead{margin:0 0 18px; color:var(--muted)}
+
+  /* ── 價格卡 ───────────────────────────────────────────────────────── */
+  .plans{display:grid; gap:14px; margin:0 0 8px; grid-template-columns:1fr}
+  @media (min-width:640px){ .plans{grid-template-columns:repeat(3,1fr)} }
+
+  .plan{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:20px 18px; box-shadow:var(--shadow); position:relative;
+  }
+  .plan.is-top{border-color:var(--accent)}
+  .plan h3{margin:0 0 2px; font-size:18px}
+  .plan .who{margin:0 0 14px; color:var(--muted); font-size:13.5px}
+  .plan .price{margin:0; font-size:24px; font-weight:700; line-height:1.3}
+  .plan .price small{font-size:14px; font-weight:400; color:var(--muted)}
+  .plan .price-sub{margin:2px 0 0; color:var(--muted); font-size:13.5px}
+  .plan .founder{
+    margin:12px 0 0; padding:10px 12px; border-radius:10px;
+    background:var(--tint); border:1px solid rgba(200,40,30,.18);
+    font-size:13.5px; line-height:1.65;
+  }
+  .plan .founder b{color:var(--accent)}
+  .tag{
+    position:absolute; top:-10px; right:16px;
+    background:var(--accent); color:#fff; font-size:12px; font-weight:700;
+    padding:3px 10px; border-radius:999px;
+  }
+
+  /* ── 比較表 ───────────────────────────────────────────────────────
+     🔑 橫向捲動**只發生在這個容器裡**，頁面本身不橫捲（PRD 驗收②）。
+     🔑 首欄 sticky：捲到右邊時還看得到自己在讀哪一列。純 CSS，不需要 JS。
+  */
+  .tbl-wrap{
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border:1px solid var(--line); border-radius:14px; background:var(--card);
+    box-shadow:var(--shadow);
+  }
+  table.cmp{border-collapse:separate; border-spacing:0; width:100%; min-width:600px; font-size:14.5px}
+  table.cmp th,table.cmp td{padding:12px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+  table.cmp thead th{
+    background:var(--card); font-size:14px; white-space:nowrap;
+    border-bottom:2px solid var(--line);
+  }
+  table.cmp th.item,table.cmp td.item{
+    position:sticky; left:0; z-index:1;
+    background:var(--card); font-weight:600; min-width:9.5em;
+    border-right:1px solid var(--line);
+  }
+  table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+  table.cmp td.l2,table.cmp thead th.l2{background:var(--tint)}
+  table.cmp td.l2{font-weight:600}
+  table.cmp .no{color:var(--muted)}
+  table.cmp .sub{display:block; color:var(--muted); font-weight:400; font-size:13px; margin-top:2px}
+  .tbl-note{margin:12px 0 0; color:var(--muted); font-size:13.5px}
+  .tbl-note + .tbl-note{margin-top:6px}
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+  /* ── 「三種方案都有」清單 ─────────────────────────────────────────── */
+  ul.all{list-style:none; margin:0; padding:0}
+  ul.all li{position:relative; padding:0 0 0 26px; margin:0 0 10px}
+  ul.all li::before{content:"✓"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px; box-shadow:var(--shadow); margin:0 0 12px;
+  }
+  .card h3{margin:0 0 8px; font-size:16px}
+  .card p{margin:0 0 10px}
+  .card p:last-child{margin-bottom:0}
+
+  ol.flow{margin:0; padding-left:0; list-style:none; counter-reset:step}
+  ol.flow li{counter-increment:step; position:relative; padding:0 0 0 34px; margin:0 0 10px}
+  ol.flow li:last-child{margin-bottom:0}
+  /* 想被單獨看見的一句話：自己一行、主色。⚠ 這不是強調語氣，是版面上的「另起一句」 */
+  .hl{display:block; margin-top:6px; color:var(--accent); font-weight:700}
+
+  ol.flow li::before{
+    content:counter(step);
+    position:absolute; left:0; top:2px;
+    width:24px; height:24px; border-radius:999px;
+    background:var(--accent); color:#fff;
+    font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ── FAQ：原生 details，不需要 JS ─────────────────────────────────── */
+  .faq details{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:0 18px; margin:0 0 10px;
+  }
+  .faq summary{
+    cursor:pointer; font-weight:700; padding:16px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"＋"; color:var(--accent); font-weight:700; flex:0 0 auto}
+  .faq details[open] summary::after{content:"－"}
+  .faq details > *:not(summary){margin-top:0}
+  .faq details p:last-child,.faq details ul:last-child{padding-bottom:16px; margin-bottom:0}
+  .faq p{margin:0 0 12px}
+  .faq ul{margin:0 0 12px; padding-left:1.2em}
+  .faq li{margin:0 0 6px}
+
+  .note{color:var(--muted); font-size:14.5px}
+
+  footer{
+    margin-top:64px; padding-top:22px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:13.5px; line-height:2;
+  }
+  footer a{color:var(--muted)}
+
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<p class="draft">
+  排版稿。上線前請確認檔頭「上線前要確認的三件事」，確認後移除 &lt;html&gt; 的 data-build 屬性即可。
+</p>
+
+<nav class="nav" aria-label="章節導覽">
+  <ul>
+    <li><a href="#price">方案與價格</a></li>
+    <li><a href="#compare">權益比較</a></li>
+    <li><a href="#all">三種方案都有</a></li>
+    <li><a href="#blindbox">盲盒怎麼運作</a></li>
+    <li><a href="#faq">常見問題</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ══ Hero ══════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <img class="logo" src="data:image/png;base64,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" alt="迷迷 mimi" width="72" height="72">
+    <h1>方案與權益</h1>
+    <p class="lede">免費就能查場次、收藏票根、逛論壇、找影伴。訂閱買的是「展示與蒐集的空間」，不是把功能鎖起來再賣給你。</p>
+    <p class="beta">
+      <strong>封測期間，受邀的測試者已全數開通「L2 首映」。</strong>
+      這段期間你在 App 裡看到的就是 L2 的樣子，不需要付費，也不必訂閱。
+    </p>
+  </header>
+
+  <!-- ══ 1. 方案與價格 ═════════════════════════════════════════════ -->
+  <section id="price">
+    <div class="sec-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      <h2>方案與價格</h2>
+    </div>
+    <p class="sec-lead">三種方案。免費方案不會過期，也不需要付款資料。</p>
+
+    <div class="plans">
+      <div class="plan">
+        <h3>免費</h3>
+        <p class="who">查場次、收藏票根、逛論壇、找影伴，這些本來就都在。</p>
+        <p class="price">NT$0</p>
+        <p class="price-sub">不需要付款資料</p>
+      </div>
+
+      <div class="plan">
+        <h3>L1 影迷</h3>
+        <p class="who">想多約幾場、想把小屋佈置得像自己的人。</p>
+        <p class="price">NT$100 <small>／月</small></p>
+        <p class="price-sub">年繳 NT$600，平均每月 NT$50</p>
+      </div>
+
+      <div class="plan is-top">
+        <span class="tag">最完整</span>
+        <h3>L2 首映</h3>
+        <p class="who">認真在蒐集、每個月都想約人看片的人。</p>
+        <p class="price">NT$300 <small>／月</small></p>
+        <p class="price-sub">年繳 NT$1,800，平均每月 NT$150</p>
+        <!--
+          創始價：照 Play Console 現行設定寫（offer l2-founder 掛在 l2-annual，
+          TWD 1,200 × 52 期、台灣、已啟用）。
+          ⚠ 三件事一個都不能漏：只有年繳、只有前 3 個月、取消即失去。
+        -->
+        <p class="founder">
+          <b>創始價：年繳 NT$1,200</b><br>
+          僅限年繳，上線後前 3 個月內訂閱可享。<strong>取消即失去</strong>，
+          之後回訂按當時的定價。
+        </p>
+      </div>
+    </div>
+
+    <p class="tbl-note">
+      實際扣款金額與幣別以 Google Play 結帳頁為準。訂閱會自動續訂，隨時可以在
+      Google Play 的訂閱設定裡取消。
+    </p>
+  </section>
+
+  <!-- ══ 2. 權益比較表 ═════════════════════════════════════════════ -->
+  <section id="compare">
+    <div class="sec-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 3 4-6"/></svg>
+      <h2>權益比較</h2>
+    </div>
+    <p class="sec-lead">表格在手機上可以左右滑。三種方案都有的東西不放進這張表——放進來會讓人以為有差別。</p>
+
+    <div class="tbl-wrap">
+      <table class="cmp">
+        <caption class="sr-only">免費、L1 影迷、L2 首映三種方案的權益比較</caption>
+        <thead>
+          <tr>
+            <th class="item" scope="col">權益</th>
+            <th scope="col">免費</th>
+            <th scope="col">L1 影迷</th>
+            <th class="l2" scope="col">L2 首映</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--
+            ⚠ 展示櫃與櫃框是**兩件事**，這兩列的寫法是刻意的。
+              「3 款」是外框的樣式數，不是三個櫃子；翻頁是 L2 才有的。
+              生活化的說法：L1 買的是「換相框」，L2 買的是「多兩個展示櫃，
+              而且每個櫃都能各自換相框」。
+              並排寫成「1／1／3」與「1 款／3 款／3 款」時很容易被讀成互相矛盾
+              —— 產品負責人 2026-08-28 就是這樣讀出問題的。
+            來源 key：showcase_cases_* / showcase_frames / showcase_frame_default
+          -->
+          <tr>
+            <th class="item" scope="row">展示櫃</th>
+            <td>1 個</td>
+            <td>1 個</td>
+            <td class="l2">3 個<span class="sub">可翻頁切換</span></td>
+          </tr>
+          <tr>
+            <th class="item" scope="row">更換櫃框</th>
+            <td class="no">固定款式</td>
+            <td>3 款可選</td>
+            <td class="l2">3 款可選<span class="sub">每一櫃各自設定</span></td>
+          </tr>
+
+          <!--
+            🔺 這一列**不在對帳清單上**，是 Code 2026-08-28 盤點時補的。
+               對帳清單把它列為「house_wall 疑案」（三個 house_wall 開頭的 key
+               在 app_settings 裡找不到），懷疑是功能壞了或匯出截斷。
+               ✅ 兩者都不是：`0101_wall_catalog_and_mask` 把那三份清單**刻意刪掉**，
+                  改成型錄表 house_walls，house_wall_choices() 同一版改讀型錄。
+                  牆是做完而且會動的分層權益。
+
+            🔺 **寫法照產品負責人 2026-08-29 指示：講「每月一款」，不講面數。**
+               目前型錄裡是 free-01〜03 ＋ l1-01 ＋ l2-01 —— 剛好是
+               「基礎 3 面 ＋ 首月各一款」，與這個寫法對得起來。
+               ⚠ **但這一句是營運承諾，不是既有機制**：型錄表沒有「月份」的概念，
+                 新款是靠營運**每個月加一列**（`source='tier'` ＋ `min_tier`）才會出現。
+                 漏加的那個月，使用者不會看到任何錯誤，只會是「這個月沒有新牆」。
+               🔑 所以這一列與九月盲盒檔期是同一種前置：**需要美術按月交件**。
+                 一旦決定不按月出，這一格要改回面數寫法。
+          -->
+          <tr>
+            <th class="item" scope="row">小屋牆面</th>
+            <td>基礎款 3 面</td>
+            <td>基礎款＋<strong>每月 1 款</strong></td>
+            <td class="l2">基礎款＋<strong>每月 2 款</strong><span class="sub">含 L1 當月那一款</span></td>
+          </tr>
+
+          <!-- blindbox_wishlist_max_*：免費 0 是設計意圖，不是漏設 -->
+          <tr>
+            <th class="item" scope="row">願望清單</th>
+            <td class="no">—</td>
+            <td>1 個系列</td>
+            <td class="l2">3 個系列</td>
+          </tr>
+
+          <!-- house_qa_*（答案字數上限 100 字，全層級相同，不上表） -->
+          <tr>
+            <th class="item" scope="row">小屋自定義問答</th>
+            <td class="no">—</td>
+            <td>1 題</td>
+            <td class="l2">最多 3 題</td>
+          </tr>
+
+          <!-- meetup_monthly_quota_*：1／2／4（0084 對帳，等於線上實值） -->
+          <tr>
+            <th class="item" scope="row">每月赴約次數</th>
+            <td>1 次</td>
+            <td>2 次</td>
+            <td class="l2">4 次</td>
+          </tr>
+
+          <!--
+            invite_monthly_quota_*：0／1／2。
+            ⚠ 免費那格照現況寫，開站歡迎券寫在表格底下的備註
+              （產品負責人 2026-08-28 裁定）。那張券是**一次性**的，
+              不是每月配額，寫進格子裡會被讀成「免費也有每月發起權」。
+          -->
+          <tr>
+            <th class="item" scope="row">每月發起邀約</th>
+            <td class="no">—<span class="sub">見表格下方備註</span></td>
+            <td>1 次</td>
+            <td class="l2">2 次</td>
+          </tr>
+
+          <!-- cinema_pick_limit_*：1／1／3 -->
+          <tr>
+            <th class="item" scope="row">邀約可指定意向影城</th>
+            <td>1 家</td>
+            <td>1 家</td>
+            <td class="l2">3 家</td>
+          </tr>
+
+          <!--
+            🔺 加場包（產品負責人 2026-08-29：**驗過了，可以正常購買**）。
+               —— 對帳當下 `meetup_addon_enabled` 還是 false、入口對所有人不可見，
+                  所以原本依鐵律 2 整頁不提；開關開了之後這一列才成立。
+            ⚠ **免費那格是「不販售」不是「0 包」。** 入口對 free 完全不可見、
+              伺服端也驗訂閱身分（`redeem_meetup_addon()` 回 meetup_restricted）——
+              寫成 0 會被讀成「免費也買得到，只是額度是 0」。
+              收益決策 §0.1 的原話：非訂閱者**永不販售**，訂閱者才限量加購。
+            ⚠ 到帳量看**購買當下**的層級；月上限是**筆數**（2 筆）且與層級無關，
+              細節寫在 FAQ，不塞進格子裡。
+          -->
+          <tr>
+            <th class="item" scope="row">加場包<span class="sub">單次購買</span></th>
+            <td class="no">不販售</td>
+            <td>每包 +1 次赴約</td>
+            <td class="l2">每包 +2 次赴約</td>
+          </tr>
+
+          <!--
+            ⚠ 「盒位」與「系列」是兩件事，0072 檔頭明載：
+              系列＝你能從哪些系列開盒／格＝你同時能持有幾個盒。
+              兩列的數字一樣（1／2／全滿），不講清楚會被讀成同一件事。
+            blindbox_slots_*：fixed 1 / fixed 2 / period_full
+          -->
+          <tr>
+            <th class="item" scope="row">同時持有的盒位</th>
+            <td>1 格</td>
+            <td>2 格</td>
+            <td class="l2">該檔期全滿<span class="sub">檔期有幾個系列就有幾格</span></td>
+          </tr>
+          <!-- blindbox_series_quota_*：fixed 1 / fixed 2 / period_full -->
+          <tr>
+            <th class="item" scope="row">可蒐集的系列數</th>
+            <td>1 個</td>
+            <td>2 個</td>
+            <td class="l2">該檔期全部</td>
+          </tr>
+          <!-- blindbox_checkin_slot_monthly_*：2／4／-1（無限） -->
+          <tr>
+            <th class="item" scope="row">靠票根領盒<span class="sub">每檔期</span></th>
+            <td>2 盒</td>
+            <td>4 盒</td>
+            <td class="l2">無限</td>
+          </tr>
+          <!--
+            blindbox_slot_addon_max_*：1／2／0
+            blindbox_slot_addon_prices：[30, 100]（第 1 格 30、第 2 格 100）
+            ⚠ L2 那格是「—」不是「0」：L2 的權益格本來就已經全滿，沒有加購的需求，
+              寫 0 會被讀成「L2 被扣掉了什麼」。
+          -->
+          <tr>
+            <th class="item" scope="row">用爆米花加購盒位</th>
+            <td>1 格<span class="sub">30 顆爆米花</span></td>
+            <td>2 格<span class="sub">第 1 格 30 顆、第 2 格 100 顆</span></td>
+            <td class="l2">—<span class="sub">權益格已全滿</span></td>
+          </tr>
+          <!-- popcorn_monthly_earn_cap_*：150／200／250 -->
+          <tr>
+            <th class="item" scope="row">每月爆米花賺取上限</th>
+            <td>150 顆</td>
+            <td>200 顆</td>
+            <td class="l2">250 顆</td>
+          </tr>
+
+          <!--
+            🔺 這一列也**不在對帳清單上**，Code 盤點時補的。
+               依據：票根牆那一頁用屋主自己的層級決定要不要套豪華框
+               （tierOf(profile) === 'l2'），元件與素材都已在 repo 裡
+               —— **是已上線的分層權益**，不是規劃中。
+               收益決策的權益敘述（subscription.ts 的 BENEFITS_L2_EXTRA）也列了它。
+            ⚠ 產品負責人若裁定不上表，刪掉這一個 tr 即可。
+          -->
+          <tr>
+            <th class="item" scope="row">豪華票根樣式</th>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="l2">✓</td>
+          </tr>
+
+          <!--
+            🔺 廣告（產品負責人 2026-08-29 指示：**先寫，免得日後上廣告時使用者不滿**）。
+            ⚠ **這一列是鐵律 2 的刻意例外**，理由記在這裡免得日後被當成疏漏刪掉：
+              鐵律 2 說未開放的不寫，但那條擋的是「把還沒有的**好處**寫成有」。
+              這一列反過來 —— 先講清楚免費層日後會有廣告，是**預先揭露**，
+              晚講才會變成「當初沒說」。兩者方向相反，所以不套同一條。
+            ⚠ 措辭要同時對兩個時間點成立：現在站上一則廣告都沒有
+              （forum.tsx：v1 只留版位不接廣告），所以免費那格寫「日後會有」
+              而不是「有」，並在 sub 講明現況。**上了廣告之後把 sub 那句拿掉。**
+            🔑 L1/L2 這兩格是**承諾**，不是描述。上廣告時版位要真的避開付費層。
+          -->
+          <tr>
+            <th class="item" scope="row">廣告</th>
+            <td>日後會顯示<span class="sub">目前站上還沒有廣告</span></td>
+            <td>不顯示廣告</td>
+            <td class="l2">不顯示廣告</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--
+      ⚠ 這一行有實作撐著，不是規劃中：`0123_welcome_invite_grant`，
+        15 張券已發、線上驗過，走既有的 meetup_quota_grants 帳本。
+        最後可用日 2026/12/31（expires_at = 2027-01-01 00:00+08）。
+    -->
+    <p class="tbl-note">
+      <strong>開站歡迎：</strong>2026/10/1 前註冊的新朋友，贈送 1 次邀約發起。
+      這是一次性的贈與，不是每月配額；帳號滿 14 天、而且有 1 張通過驗證的票根之後就能用，
+      最後可用日是 2026/12/31。
+    </p>
+    <p class="tbl-note">
+      赴約與邀約的次數按月發放，發下來的次數有 3 個月的效期，沒用完會累積。
+      「本月還剩幾次」以 App 裡「配對」分頁最上面那一列為準。
+    </p>
+  </section>
+
+  <!-- ══ 3. 三種方案都有 ═══════════════════════════════════════════ -->
+  <section id="all">
+    <div class="sec-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      <h2>三種方案都有</h2>
+    </div>
+    <p class="sec-lead">下面這些沒有分層級，所以不放進上面那張比較表。</p>
+
+    <ul class="all">
+      <li><strong>查場次、票根與集章冊、成就、哪裡看</strong>——App 的主線功能沒有付費牆。</li>
+      <li><strong>論壇與小屋日記</strong>——發文、推文、回覆、投票，人人都有。</li>
+      <li><strong>看別人的完整收藏</strong>——點進別人的展示櫃就看得到，不分方案。
+        付費買的是<strong>展示的空間</strong>（櫃數、櫃框、牆面），不是觀看的權利。</li>
+      <li><strong>小屋的裝飾錨點</strong>——前 2 個位置免費，第 3 個位置 120 顆爆米花，三種方案同價。</li>
+      <li><strong>私訊保留 180 天</strong>——配對成立後的私訊都保留 180 天，之後自動清除，三種方案相同。</li>
+      <li><strong>用爆米花佈置小屋</strong>——裝潢與擺設都用爆米花換，不需要訂閱。</li>
+    </ul>
+  </section>
+
+  <!-- ══ 4. 盲盒怎麼運作 ═══════════════════════════════════════════ -->
+  <section id="blindbox">
+    <div class="sec-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8s-1.5-4-4-4a2 2 0 100 4M12 8s1.5-4 4-4a2 2 0 110 4"/></svg>
+      <h2>盲盒怎麼運作</h2>
+    </div>
+    <p class="sec-lead">盒子不是用錢買的，是用你在站上做的事養大的。</p>
+
+    <div class="card">
+      <h3>孵化：看電影、赴約，盒子就會長大</h3>
+      <ol class="flow">
+        <li>領到一個盒之後它會開始孵化，累積滿 10 點就能打開。</li>
+        <li>票根通過驗證 +5 點、完成一次赴約 +5 點、其他可以拿到貢獻點數的行為 +2 點。
+          <!--
+            ⚠ 這一句**要自己一行**（產品負責人 2026-08-29）：跟在上一句後面時，
+              手機上會斷在「+10 點——看一部」中間，讀起來像上一句的一部分。
+              用 class 而不是 <br>：斷行是版面，不是內容。
+          -->
+          <span class="hl">★ L2 首映的票根是 +10 點——看一部電影，剛好開一盒。</span></li>
+        <li><strong>同時只孵化 1 顆</strong>，其餘的排隊等前一顆開完。用爆米花加購的盒位
+          <strong>不必排隊，領到就能開</strong>。</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>檔期：這一檔沒開完的盒子不會留到下一檔</h3>
+      <p>
+        盲盒按檔期推出，每一檔有自己的系列與款式。
+        <strong>檔期結束時還沒打開的盒子會作廢</strong>，用爆米花加購的也一樣——
+        加購解決的是「不用排隊」，不是「永久有效」。
+      </p>
+      <p class="note">App 的孵化卡上會寫出這一檔的截止時間，還有幾顆會作廢。</p>
+    </div>
+
+    <div class="card">
+      <h3>集滿：首發的三個系列，開盒必得新款</h3>
+      <p>
+        首發檔期的三個系列都是「不重複型」：<strong>每次打開都是還沒收過的款式，直到常規款收齊</strong>。
+        所以要花多少才收得完是算得出來的，不會一直開到同一款。
+      </p>
+      <p class="note">隱藏款不走這條路，取得方式見下面的常見問題。</p>
+    </div>
+  </section>
+
+  <!-- ══ 5. 常見問題 ═══════════════════════════════════════════════ -->
+  <section id="faq" class="faq">
+    <div class="sec-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      <h2>常見問題</h2>
+    </div>
+
+    <!--
+      🔴 隱藏款這一則的事實基礎：
+         · 隱藏款不進一般開盒的池（blindbox_designs.acquire 的 draw 為 false）
+         · 解謎：L2 ＋ 集滿該系列常規款 → 發一條線索；答題一日一次
+           （0078、設計定義 §4.1 Q8 改制）
+         · 赴約補齊：願望清單掛系列 ＋ 常規款集滿 ＋ 對方持有（0082、§5.1〜5.3）
+         · 免費層沒有願望清單格，所以複製那條路天然要 L1 以上（Q6）
+      🔴 措辭：一律「有機會」。池空是常態，不得用保證語氣
+         （2026-08-13 裁定；赴約單那一頁也有同一條註記）。
+      🔺 上線前：謎底與線索的內容還沒種（seed_blindbox_riddles.sql 仍是範本）。
+         沒種的話，集滿的 L2 拿不到線索——要嘛先種，要嘛把第一條拿掉。
+    -->
+    <details>
+      <summary>隱藏款怎麼拿到？</summary>
+      <p>隱藏款不會從一般的開盒得到。目前有兩條路：</p>
+      <ul>
+        <li><strong>解謎</strong>（L2 首映）：把某個系列的常規款收齊之後，會拿到這個系列的一條謎題線索。
+          一個人在一個系列只會拿到一條，所以線索要靠大家在論壇上互相交換才湊得齊；解出謎底就能收下隱藏款。</li>
+        <li><strong>赴約補齊</strong>（L1 影迷以上）：把系列掛進願望清單、常規款收齊，
+          赴約完成時<strong>有機會</strong>從對方的收藏補到你缺的那一款——前提是對方身上有。
+          對方沒有的時候這次就沒有補到，但赴約本身的貢獻點數、爆米花與孵化進度照樣入袋。</li>
+      </ul>
+      <p class="note">免費方案沒有願望清單的格子，所以「赴約補齊」要 L1 以上。</p>
+    </details>
+
+    <details>
+      <summary>收藏得完嗎？會不會一直開到重複的？</summary>
+      <p>
+        首發檔期的三個系列都是<strong>不重複型</strong>：每次打開都是還沒收過的款式，
+        直到該系列的常規款收齊為止。要收滿一個系列得花多少，是算得出來的。
+      </p>
+      <p class="note">隱藏款不在這個保證裡——它不從一般開盒得到，取得方式見上一則。</p>
+    </details>
+
+    <!--
+      爆米花的取得途徑照 popcornReasonLabel()（app/src/lib/popcorn.ts）列，
+      那是站上唯一一份「入帳理由 → 文案」的翻譯，不要在這裡另外發明說法。
+      ⚠ 管理員發放與申訴追回退還屬於營運與治理，不列在對外文案裡。
+
+      🔴 **「文章被收進精華區」這一條差點漏掉。**
+         Code 第一次查證時只讀到 `0069` 的 reason 清單就下結論說「精華不給爆米花」，
+         而 `0077` 早就把它加上去了（`essence_points` 預設 50、1:1 同源發等量爆米花、
+         `essence_points_awarded` 防「取消精華再收一次」）。
+         由產品負責人 2026-08-29 指出才發現。
+         🔑 教訓與 supabase/CLAUDE.md 那條同一顆：**某個機制的最新定義在哪一支，
+            要 grep 全掃**，讀到一支看起來完整的就停，會把「後來補上的」當成不存在。
+
+      ⚠ 這裡**刻意不寫每一條給幾顆**：數值全在 app_settings（`essence_points` 之類），
+        調參不該回頭改網頁。要查現值就跑檔頭那句 SQL。
+      ⚠ 唯一一句與數值有關的是精華那條的「站上單筆最多的一種」。
+        目前 50 對其餘最高的 5，差 10 倍，講得起；**但它是設定值** ——
+        哪天把 essence_points 調到 5 以下，這半句就要跟著拿掉。
+    -->
+    <details>
+      <summary>爆米花怎麼來？可以用錢買嗎？</summary>
+      <p><strong>爆米花無法用金錢購買，也沒有任何加值管道。</strong>只能在站上做事累積：</p>
+      <ul>
+        <li>發表文章</li>
+        <li>文章獲得推文</li>
+        <li><strong>文章被收進精華區</strong>——站上單筆最多的一種</li>
+        <li>在 [請益] 文裡，你的回答被發問的人採用</li>
+        <li>場次通過驗證</li>
+        <li>回報座位狀況</li>
+        <li>完成一次赴約</li>
+      </ul>
+      <p>賺到的爆米花可以用來加購盲盒盒位、佈置小屋、開第 3 個裝飾錨點。</p>
+      <p class="note">每個月能賺到的爆米花有上限，三種方案分別是 150、200、250 顆。</p>
+    </details>
+
+    <details>
+      <summary>盒位只能加購 1 到 2 格嗎？</summary>
+      <p>
+        是的。免費方案最多用爆米花加購 1 格（30 顆），L1 影迷最多 2 格（第 1 格 30 顆、第 2 格 100 顆）。
+        L2 首映的權益格本來就是該檔期全滿，所以沒有加購這件事。
+      </p>
+      <p class="note">加購的格子與權益的格子一樣受檔期限制，這一檔沒開完一樣會作廢。</p>
+    </details>
+
+    <!--
+      加場包的事實基礎（收益決策 §0.1【定】＋ 0063／0095 實作）：
+        · NT$80、單次購買、只有訂閱者買得到（`meetup_addon_pack`，Play 已啟用）
+        · 到帳量看**購買當下**的層級：L1 +1、L2 +2（`meetup_addon_amount_*`）
+        · 月上限是**筆數** 2 筆且與層級無關（`meetup_addon_monthly_max`），
+          月中升級不重置已用筆數 —— 所以實質天花板 L1 4 次、L2 8 次
+        · 冷卻或停權中不可加購：「買了也用不掉，賣他等於收錢不給貨」
+      🔴 為什麼月上限是筆數不是金額（這句別刪，日後有人會問）：
+         D17 紅線防的是「有錢就能大量接觸人」，一個硬性的月上限比「永不販售」
+         更直接地擋住那件事 —— 永不販售擋的是入口，月上限擋的是結果。
+    -->
+    <details>
+      <summary>次數用完了，可以加買嗎？</summary>
+      <p>
+        訂閱者可以買<strong>加場包</strong>（NT$80）：L1 影迷一包 +1 次赴約，
+        L2 首映一包 +2 次。到帳的次數看<strong>購買當下</strong>的方案。
+      </p>
+      <p>
+        每個月最多買 <strong>2 筆</strong>，這個上限與方案無關——所以一個月的天花板是
+        L1 最多 4 次、L2 最多 8 次。
+      </p>
+      <p class="note">
+        免費方案不販售加場包。冷卻中或帳號被停權的期間也不能買——買了也用不掉。
+      </p>
+    </details>
+
+    <!--
+      私訊保留：meetup_message_retention_days = 180，全層級同一個值，
+      所以放這裡而不是比較表（鐵律 1）。
+    -->
+    <details>
+      <summary>私訊會保留多久？</summary>
+      <p>
+        配對成立後的私訊保留 <strong>180 天</strong>，之後由系統自動清除。
+        三種方案都一樣，訂閱不會延長保留時間。
+      </p>
+    </details>
+
+    <!--
+      降級／到期的收合規則，事實基礎：
+        · 展示櫃：0098「降級之後多出來的櫃子是藏起來不是刪掉」，升回去就回來
+        · 牆面：0101「降級是退回預設不是清掉」，wall_code 不動
+        · 配額：0033「正常到期與降級都不凍結」（PRD §4.2 已發放且未過期的不追回）
+        · 收藏：盲盒收藏沒有任何層級門，不會因為降級消失
+    -->
+    <details>
+      <summary>訂閱到期或降級之後，東西會不見嗎？</summary>
+      <p>
+        <strong>不會刪掉，只是先收起來。</strong>多出來的展示櫃與它們的設定都留著，
+        只是不再掛在小屋上；牆面會先退回預設的那一面。<strong>升回去的時候，
+        原本的設定都還在。</strong>
+      </p>
+      <p>
+        已經發下來、還沒過期的赴約與邀約次數<strong>不會被收回</strong>，可以照常用完。
+        盲盒收下的收藏是你的，不會因為方案變動而消失。
+      </p>
+      <p class="note">Google Play 的降級是在下一次續訂時才生效，在那之前原本的權益都還在。</p>
+    </details>
+
+    <details>
+      <summary>升級之後什麼時候生效？</summary>
+      <p>
+        付款完成、Google Play 通知到站上之後就生效，不必等到下個月。
+        當月的赴約與邀約次數會<strong>補到新方案的額度</strong>——例如這個月已經領了 2 次赴約，
+        升上 L2 首映之後會補 2 次，本月合計 4 次，不會從頭重算，也不會少給。
+      </p>
+      <p class="note">如果畫面上還沒更新，到訂閱頁下拉重新整理一次即可。</p>
+    </details>
+
+    <details>
+      <summary>會有廣告嗎？</summary>
+      <p>
+        <strong>目前站上一則廣告都沒有。</strong>日後開始顯示廣告時，
+        只會出現在免費方案；<strong>L1 影迷與 L2 首映不會看到廣告。</strong>
+      </p>
+      <p class="note">先寫在這裡，是為了讓你在決定要不要訂閱之前就知道這件事。</p>
+    </details>
+
+    <details>
+      <summary>還有其他問題？</summary>
+      <p>寫信給我們：<a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a></p>
+    </details>
+  </section>
+
+  <!-- ══ 6. 頁尾 ═══════════════════════════════════════════════════ -->
+  <footer>
+    <a href="../guide/">使用教學</a>　·
+    <a href="../">隱私權政策</a>　·
+    <a href="../delete/">刪除帳號與資料</a>　·
+    <a href="https://www.instagram.com/mimicinephile2026/" rel="noopener">Instagram @mimicinephile2026</a><br>
+    迷迷 mimi ・ Bitter DEV ・ <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a><br>
+    © 2026 Bitter DEV
+  </footer>
+
+</main>
+
+</body>
+</html>
