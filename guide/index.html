@@ -8,15 +8,26 @@
 <link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/guide/">
 
 <!--
-  LCP 預載(2026-08-29)。
-  🔑 hero 那張圖**就是 LCP** —— 它在四支 CDN 樣式表後面才被發現,
-     而那四支是阻塞的,所以圖要等 CSS 全部到齊才開始下載。
-     preload 讓瀏覽器一讀到 head 就去抓,不必等 CSS。
-  ⚠ 這條的 href 必須與下面 hero 的 src **一模一樣**,否則會下載兩次
-    (變成幫倒忙)。換 hero 圖時兩處要一起改。
-  ⚠ 只 preload 這一張。preload 太多張會互相搶頻寬,反而把 LCP 拖慢。
+  ── LCP 的真正瓶頸是 FCP,不是圖(2026-08-29 實測)───────────────────────
+  🔴 **不要再對 hero 圖加 preload / fetchpriority —— 試過了,會扣分。**
+
+     判準是 **LCP − FCP**:兩次跑分都是 **0.6s**(2.6→3.2 與 2.8→3.4)。
+     也就是說頁面到 FCP 之前什麼都畫不出來,而圖在那之後 0.6s 就上畫面了 ——
+     **圖從來不是長桿子,下面那四支阻塞算繪的樣式表才是。**
+
+     實測數字:四支 CSS 合計 **80.5 KB**,全在第三個來源(冷連握手 163ms);
+     hero 圖 **93.6 KB**。在 Lighthouse 的節流行動網路(約 200 KB/s)上,
+     那張圖等於 **470ms 的頻寬** —— 用高優先權把它插到 80 KB 阻塞 CSS 前面搶,
+     FCP 從 2.6 掉到 2.8s,總分 89 → 85。
+
+  🔑 **preconnect 才是這一頁該做的**:它不搶頻寬,只是把
+     「連到 cdn.jsdelivr.net 要做的 DNS + TCP + TLS」提前開始。
+     那三趟來回目前是**解析完 HTML 才開始**的,而四支 CSS 全部卡在它後面。
+  ⚠ 要 `crossorigin`:樣式表是匿名跨來源請求,少了這個屬性會另開一條連線,
+    preconnect 那條就白開了。
 -->
-<link rel="preload" as="image" href="assets/04-house-1.webp" fetchpriority="high">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
 <!--
 ═══════════════════════════════════════════════════════════════════════════
@@ -278,7 +289,7 @@
                  檢查把註解當成引用而誤報缺檔。
           -->
           <a class="glightbox" href="assets/04-house-1.webp" data-gallery="hero" aria-label="放大：迷迷主畫面">
-            <img src="assets/04-house-1.webp" alt="迷迷「我的小屋」畫面" width="298" height="650" fetchpriority="high">
+            <img src="assets/04-house-1.webp" alt="迷迷「我的小屋」畫面" width="298" height="650">
           </a>
         </div>
         <div class="device-stripe"></div>
