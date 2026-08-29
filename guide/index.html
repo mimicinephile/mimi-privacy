@@ -8,6 +8,17 @@
 <link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/guide/">
 
 <!--
+  LCP 預載(2026-08-29)。
+  🔑 hero 那張圖**就是 LCP** —— 它在四支 CDN 樣式表後面才被發現,
+     而那四支是阻塞的,所以圖要等 CSS 全部到齊才開始下載。
+     preload 讓瀏覽器一讀到 head 就去抓,不必等 CSS。
+  ⚠ 這條的 href 必須與下面 hero 的 src **一模一樣**,否則會下載兩次
+    (變成幫倒忙)。換 hero 圖時兩處要一起改。
+  ⚠ 只 preload 這一張。preload 太多張會互相搶頻寬,反而把 LCP 拖慢。
+-->
+<link rel="preload" as="image" href="assets/04-house-1.webp" fetchpriority="high">
+
+<!--
 ═══════════════════════════════════════════════════════════════════════════
   迷迷使用教學頁 /guide/
   對應 docs/教學頁-guide-PRD-v1-2026-08-28.md（PM 出稿、產品負責人核定）
@@ -267,7 +278,7 @@
                  檢查把註解當成引用而誤報缺檔。
           -->
           <a class="glightbox" href="assets/04-house-1.webp" data-gallery="hero" aria-label="放大：迷迷主畫面">
-            <img src="assets/04-house-1.webp" alt="迷迷「我的小屋」畫面" width="298" height="650">
+            <img src="assets/04-house-1.webp" alt="迷迷「我的小屋」畫面" width="298" height="650" fetchpriority="high">
           </a>
         </div>
         <div class="device-stripe"></div>
