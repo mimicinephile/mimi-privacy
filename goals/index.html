@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh-Hant" data-build="draft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>邀請目標與全服衝刺 — 迷迷 mimi</title>
+<meta name="description" content="迷迷 mimi 的個人邀請目標與全服衝刺目標：邀請幾個人、全站到幾人，各拿得到什麼，一頁看懂。">
+<link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/goals/">
+
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  迷迷邀請目標說明頁 /goals/
+  對應 docs/個人邀請與全服目標-需求單-2026-09-11.md（v1.2，PM 出稿）
+       docs/封測日程表-草案-2026-08-19.md 檔頭 ㉘（裁決總帳）
+
+  ── 部署 ────────────────────────────────────────────────────────────────
+  本資料夾整包複製到 mimi-privacy repo 的 goals/ 後 push。
+  正式網址 https://mimicinephile.github.io/mimi-privacy/goals/
+  🔺 上線前先拿掉 <html> 上的 data-build="draft"（黃色提示條就會消失）。
+  🔺 與 (14) 上軌同一天 push：App 的「完整獎勵表」按鈕連到這裡，早於 App 上線
+     沒關係，晚於 App 上線=按鈕 404。
+
+  ── 外部相依：零 ────────────────────────────────────────────────────────
+  沿 /plans/ 的驗收條件：一個外部請求都沒有。表格是原生 table、摺疊是原生
+  details、沒有圖片、沒有線上字型。加任何 CDN 之前先想清楚。
+
+  ── 追蹤 ────────────────────────────────────────────────────────────────
+  不接任何 API、不埋任何分析。頁面不收集資料，隱私政策免改。
+
+  ── 數字從哪裡來 ────────────────────────────────────────────────────────
+  四張表的門檻與獎品=需求單 §1.1 / §1.2 / §2.1 / §2.4，產品負責人 2026-09-11 定稿。
+  🔴 App 內獎勵表、本頁、需求單三邊要一致；改任何一格三邊一起改。
+
+  ── 措辭紅線 ────────────────────────────────────────────────────────────
+  沿 /plans/ 對帳清單「措辭鐵律」那一節的禁用詞清單，這裡同樣不抄出來。
+  本頁沒有任何隨機成分，所有獎品都是指定款，不得出現「有機會」以外的
+  機率語彙，也不要寫「限量」「額滿」（2026-09-12 產品負責人定：電影票不限量）。
+  「!」那兩格的內容對外不公開，本頁只寫「到了就知道」。
+
+  ── 素材名稱 ────────────────────────────────────────────────────────────
+  🔺 「紀念章」「小屋的牆」「公仔」目前是類別名，開服衝刺系列的款式名
+     等美術交件後回填（款式名以交件素材+資料庫為準，立案單不是權威）。
+═══════════════════════════════════════════════════════════════════════════
+-->
+
+<style>
+  :root{
+    --bg:#F8F6F0; --fg:#1C1B18; --card:#FFFFFF; --accent:#C8281E;
+    --muted:#6B6862; --line:#E8E4DA; --tint:#FBF4F3;
+    --shadow:0 2px 24px rgba(28,27,24,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:64px}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",
+                -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.7; font-size:16px; -webkit-font-smoothing:antialiased;
+    overflow-x:clip; /* 必須是 clip 不能是 hidden，理由見 /plans/ 註解 */
+  }
+  a{color:var(--accent)}
+
+  .draft{display:none}
+  [data-build="draft"] .draft{
+    display:block; background:#FFF3CD; color:#5C4600;
+    border-bottom:1px solid #E8D9A0; font-size:13px; line-height:1.6;
+    padding:10px 16px; text-align:center;
+  }
+
+  .nav{
+    position:sticky; top:0; z-index:30; background:rgba(248,246,240,.94);
+    -webkit-backdrop-filter:saturate(180%) blur(10px); backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav ul{display:flex; gap:4px; margin:0; padding:8px 12px; list-style:none; overflow-x:auto; scrollbar-width:none}
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav a{display:block; white-space:nowrap; text-decoration:none; color:var(--muted); font-size:14px; font-weight:600; padding:6px 12px; border-radius:999px}
+  .nav a:hover,.nav a:focus-visible{background:rgba(200,40,30,.07); color:var(--accent)}
+
+  main{max-width:860px; margin:0 auto; padding:0 20px 72px}
+  .hero{text-align:center; padding:40px 0 4px}
+  .hero h1{font-size:26px; line-height:1.4; margin:0 0 10px; font-weight:700}
+  .hero .lede{margin:0 auto 20px; max-width:30em; color:var(--muted); font-size:16px}
+
+  section{padding-top:56px}
+  .sec-head{display:flex; align-items:center; gap:10px; margin:0 0 6px}
+  .sec-head h2{font-size:20px; margin:0; font-weight:700; line-height:1.4}
+  .sec-lead{margin:0 0 18px; color:var(--muted)}
+  h3{font-size:16.5px; margin:26px 0 10px}
+  h3 small{font-weight:400; color:var(--muted); font-size:13.5px; margin-left:6px}
+
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:14px; background:var(--card); box-shadow:var(--shadow)}
+  table.cmp{border-collapse:separate; border-spacing:0; width:100%; font-size:14.5px}
+  table.cmp th,table.cmp td{padding:11px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+  table.cmp thead th{background:var(--card); font-size:13.5px; color:var(--muted); white-space:nowrap; border-bottom:2px solid var(--line)}
+  table.cmp th.n{white-space:nowrap; font-weight:700; width:6.5em; font-variant-numeric:tabular-nums}
+  table.cmp th.n small{font-weight:400; color:var(--muted); font-size:12.5px}
+  table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+  table.cmp td.sub,table.cmp thead th.sub{background:var(--tint)}
+  .chip{display:inline-block; background:#F3EFE4; border:1px solid var(--line); border-radius:999px; padding:1px 10px; margin:2px 6px 2px 0; font-size:13.5px; white-space:nowrap}
+  .chip.gold{background:#FFF6D6; border-color:#EAD9A3}
+  .chip.q{background:var(--accent); color:#fff; border-color:var(--accent); font-weight:700}
+  .chip.dash{background:transparent; border-color:transparent; color:var(--muted); padding-left:0}
+  .tbl-note{margin:12px 0 0; color:var(--muted); font-size:13.5px}
+  .tbl-note + .tbl-note{margin-top:6px}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:var(--shadow); margin:0 0 12px}
+  .card h3{margin:0 0 8px; font-size:16px}
+  .card p{margin:0 0 8px}
+  .card p:last-child{margin:0}
+  ul.rules{margin:0; padding:0 0 0 1.2em}
+  ul.rules li{margin:0 0 8px}
+
+  details{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:0 16px; margin:0 0 10px; box-shadow:var(--shadow)}
+  summary{cursor:pointer; padding:14px 0; font-weight:600; list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"＋"; color:var(--accent); margin-right:8px}
+  details[open] summary::before{content:"－"}
+  details p{margin:0 0 14px; color:var(--fg)}
+
+  footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; line-height:2}
+</style>
+</head>
+<body>
+
+<div class="draft">排版稿——門檻與獎品已定案，款式名稱等美術交件後回填。上線前拿掉 data-build。</div>
+
+<nav class="nav" aria-label="頁內導覽">
+  <ul>
+    <li><a href="#me">我的邀請</a></li>
+    <li><a href="#all">全服衝刺</a></li>
+    <li><a href="#how">怎麼算</a></li>
+    <li><a href="#faq">常見問題</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <header class="hero">
+    <h1>邀請目標與全服衝刺</h1>
+    <p class="lede">你帶進來的人，和全站一起走的進度。這一頁是完整獎勵表；App 裡只顯示你目前的進度與下一格。</p>
+  </header>
+
+  <!-- ══ 1. 我的邀請 ═══════════════════════════════════════════════ -->
+  <section id="me">
+    <div class="sec-head"><h2>我的邀請</h2></div>
+    <p class="sec-lead">用你的邀請碼註冊的人，算你的。兩條進度各自計、各自發，互不影響。</p>
+
+    <h3>帶進來的人完成註冊<small>累計人數</small></h3>
+    <div class="tbl-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col">人數</th><th scope="col">獎勵</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" class="n">10</th><td><span class="chip gold">爆米花 100</span></td></tr>
+          <tr><th scope="row" class="n">20</th><td><span class="chip">紀念章</span></td></tr>
+          <tr><th scope="row" class="n">30</th><td><span class="chip gold">爆米花 200</span></td></tr>
+          <tr><th scope="row" class="n">40</th><td><span class="chip">小屋的牆</span></td></tr>
+          <tr><th scope="row" class="n">50</th><td><span class="chip gold">爆米花 300</span><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">100</th><td><span class="chip q">！</span><span class="chip dash">到了就知道</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>帶進來的人成為訂閱者<small>累計人數</small></h3>
+    <div class="tbl-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col">人數</th><th scope="col">獎勵</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" class="n">1</th><td><span class="chip">紀念章</span></td></tr>
+          <tr><th scope="row" class="n">3</th><td><span class="chip">小屋的牆</span></td></tr>
+          <tr><th scope="row" class="n">5</th><td><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">10</th><td><span class="chip gold">電影票一張</span></td></tr>
+          <tr><th scope="row" class="n">20</th><td><span class="chip gold">電影票一張</span></td></tr>
+          <tr><th scope="row" class="n">30</th><td><span class="chip q">！</span><span class="chip dash">到了就知道</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">「完成註冊」與「成為訂閱者」的定義見下方〈怎麼算〉。App 只顯示你邀了幾個人、其中幾位成為訂閱者，不會列出是誰。</p>
+  </section>
+
+  <!-- ══ 2. 全服衝刺 ═══════════════════════════════════════════════ -->
+  <section id="all">
+    <div class="sec-head"><h2>全服衝刺</h2></div>
+    <p class="sec-lead">全站一起達標，達標當下已經完成註冊的每一個人都拿得到。之後才加入的人不追溯。</p>
+
+    <h3>全站完成註冊的人數</h3>
+    <div class="tbl-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col">人數</th><th scope="col">每個人都拿到</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" class="n">50</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">100</th><td><span class="chip gold">爆米花 10</span></td></tr>
+          <tr><th scope="row" class="n">250</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">500</th><td><span class="chip gold">爆米花 50</span><span class="chip">紀念章</span></td></tr>
+          <tr><th scope="row" class="n">750</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">1,000</th><td><span class="chip gold">爆米花 100</span><span class="chip">紀念章</span><span class="chip">小屋的牆</span></td></tr>
+          <tr><th scope="row" class="n">1,500</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">2,000</th><td><span class="chip gold">爆米花 200</span><span class="chip">紀念章</span><span class="chip">小屋的牆</span><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">2,500</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">5,000</th><td><span class="chip gold">爆米花 500</span><span class="chip">紀念章</span><span class="chip">小屋的牆</span><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">7,500</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">10,000</th><td><span class="chip">小屋的牆</span><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">15,000</th><td><span class="chip">活動盒一顆</span></td></tr>
+          <tr><th scope="row" class="n">20,000</th><td><span class="chip">公仔</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>全站成為訂閱者的人數</h3>
+    <div class="tbl-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col">人數</th><th scope="col">每個人都拿到</th><th scope="col" class="sub">達標當下有訂閱的人另加</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" class="n">5</th><td><span class="chip gold">爆米花 20</span></td><td class="sub"><span class="chip dash">—</span></td></tr>
+          <tr><th scope="row" class="n">25</th><td><span class="chip gold">爆米花 50</span></td><td class="sub"><span class="chip">紀念章</span></td></tr>
+          <tr><th scope="row" class="n">50</th><td><span class="chip gold">爆米花 100</span></td><td class="sub"><span class="chip">小屋的牆</span></td></tr>
+          <tr><th scope="row" class="n">100</th><td><span class="chip gold">爆米花 200</span></td><td class="sub"><span class="chip">公仔</span></td></tr>
+          <tr><th scope="row" class="n">250</th><td><span class="chip gold">爆米花 300</span></td><td class="sub"><span class="chip">紀念章（第二款）</span></td></tr>
+          <tr><th scope="row" class="n">500</th><td><span class="chip gold">爆米花 500</span></td><td class="sub"><span class="chip">公仔（第二款）</span></td></tr>
+          <tr><th scope="row" class="n">1,000</th><td><span class="chip gold">爆米花 500</span></td><td class="sub"><span class="chip">小屋的牆（第二款）</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">「達標當下有訂閱」指那一刻是 L1 影迷或 L2 首映會員。差幾個人達標，App 會寫在進度旁邊。</p>
+  </section>
+
+  <!-- ══ 3. 怎麼算 ═══════════════════════════════════════════════ -->
+  <section id="how">
+    <div class="sec-head"><h2>怎麼算</h2></div>
+    <p class="sec-lead">規則都寫在這裡，App 內的數字照這套算。</p>
+
+    <div class="card">
+      <h3>什麼算「完成註冊」</h3>
+      <p>完成 email 驗證，而且註冊後 7 天內開啟過 App。只註冊、從沒打開過的帳號不算。</p>
+    </div>
+    <div class="card">
+      <h3>什麼算「成為訂閱者」</h3>
+      <p>第一次訂閱滿 7 天、沒有退款，才計入。加場包不算訂閱。退款的不計，但已經計入的不會倒扣。</p>
+    </div>
+    <div class="card">
+      <h3>哪些不算你的</h3>
+      <ul class="rules">
+        <li>用活動碼（例如封測期間的團隊碼）註冊的人，不算任何人的。</li>
+        <li>自己開帳號邀請自己，一經發現取消該格資格，已發的獎勵會收回。</li>
+        <li>測試帳號與審核帳號不計入任何數字。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>獎勵什麼時候到</h3>
+      <ul class="rules">
+        <li>爆米花：達標當天入帳，不佔每月賺取上限。</li>
+        <li>紀念章、公仔、小屋的牆：達標當下先記在你名下，素材到位後送達，App 會通知。這段期間該格顯示「獎勵準備中」。</li>
+        <li>活動盒：一顆額外的盲盒，開的是你當時選的系列，開不到「開服衝刺」系列的款式。</li>
+        <li>電影票：達標後 App 會通知你，用註冊的信箱寄信到 <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a>、主旨寫「領票」，核對後寄給你。</li>
+        <li>「！」那兩格：到了就知道，我們會親自聯絡你。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>錯過了全服獎勵怎麼辦</h3>
+      <p>個人與全服的紀念章、公仔都屬於同一個「開服衝刺」系列。這個系列在盲盒頁不能選，只能靠達標拿到；已經拿到其中一款的訂閱者，可以把它放進願望清單，赴約後有機會從已經擁有的影伴那裡取得其他款。小屋的牆不在這個機制裡，只有達標當下在場的人有。</p>
+    </div>
+  </section>
+
+  <!-- ══ 4. 常見問題 ═══════════════════════════════════════════════ -->
+  <section id="faq">
+    <div class="sec-head"><h2>常見問題</h2></div>
+
+    <details>
+      <summary>我邀的人已經註冊了，為什麼數字還沒動？</summary>
+      <p>要等他完成 email 驗證，並且在 7 天內開啟過 App。數字每小時更新一次。</p>
+    </details>
+    <details>
+      <summary>朋友註冊時忘了填我的邀請碼，可以補嗎？</summary>
+      <p>目前不能自己補填。寫信到 <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a> 說明情況，我們會人工處理。</p>
+    </details>
+    <details>
+      <summary>兩張電影票是同一種嗎？</summary>
+      <p>是，都是全台通用的電影票券，實際可用的影城與加價規則以票券上的說明為準。</p>
+    </details>
+    <details>
+      <summary>全服目標達標時我剛好還沒訂閱，「另加」的那件還拿得到嗎？</summary>
+      <p>拿不到。「另加」只發給達標那一刻有訂閱的人，所以 App 會提前告訴你還差幾個人。</p>
+    </details>
+    <details>
+      <summary>還有其他問題？</summary>
+      <p>寫信給我們：<a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a></p>
+    </details>
+  </section>
+
+  <footer>
+    <a href="../guide/">使用教學</a>　·
+    <a href="../plans/">方案與權益</a>　·
+    <a href="../">隱私權政策</a>　·
+    <a href="../delete/">刪除帳號與資料</a>　·
+    <a href="https://www.instagram.com/mimicinephile2026/" rel="noopener">Instagram @mimicinephile2026</a><br>
+    迷迷 mimi ・ Bitter DEV ・ <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a><br>
+    © 2026 Bitter DEV
+  </footer>
+
+</main>
+</body>
+</html>
