@@ -174,6 +174,8 @@ Bitter DEV(以下稱「我們」)開發並營運「迷迷」App(以下稱「本�
 
 電影資訊來自第三方電影資料庫,我們只從對方取得資料,**不會把你的任何資料送過去**。
 
+電影資料與海報來自 TMDB(The Movie Database)。This product uses the TMDB API but is not endorsed or certified by TMDB.
+
 ### 6.3 法律要求
 
 當法律、法院或主管機關依法要求時,我們可能必須揭露資料。
