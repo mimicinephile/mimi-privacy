@@ -62,13 +62,17 @@
   ⚠ 不接任何 API、不埋任何分析。頁面不收集資料，隱私政策免改。
      要加任何統計之前先回去改隱私權政策，順序不能反。
 
-  ── 狀態：上線版（2026-08-29）────────────────────────────────────────────
-  文案與 14 張截圖到位（08-28），CTA 連結由產品負責人從 Play Console
-  核對過（08-29），排版稿旗標已移除。
+  ── 狀態：上線版（2026-08-29；2026-10-05 兩平台上架後更新）───────────────
+  文案與 14 張截圖到位（08-28），排版稿旗標已移除。
+  2026-10-05：Hero 改成 Google Play / App Store 兩顆直連按鈕
+  （《網頁三頁-上架後更新-PRD-2026-10-05》），不再經過 JS 的連結常數。
 
-  ⚠ 頁首那條黃色提示條的機制**留著沒拆**：下次要改版又不想立刻上線時，
-    在 <html> 加回 data-build="draft" 就會再出現。留著不花任何成本，
-    而重寫一次要花時間。
+  ⚠ 頁首那條黃色提示條的 **CSS 機制留著沒拆**（.draft 那幾行）：下次要改版又不想
+    立刻上線時，在 <html> 加回 data-build="draft"，並在 <body> 開頭加回一段
+    把 draft 這個 class 掛上去的說明段落，就會再出現。
+    ❌ ~~提示段落本身原本也留在頁面裡~~ —— 2026-10-05 拿掉了：它被 CSS 藏起來，
+      一般訪客看不到，但抓網頁文字的工具讀得到，於是有人回報「線上還顯示排版稿」，
+      而且那段文字還停在上架前的「請核對下載連結」。
 ═══════════════════════════════════════════════════════════════════════════
 -->
 
@@ -172,6 +176,8 @@
   .btn:active{opacity:.82}
   @media (hover:hover){ .btn:hover{opacity:.9} }
   .btn-note{margin:12px 0 0; color:var(--muted); font-size:13px}
+  /* 兩顆商店按鈕：手機上並排，太窄時自動換行（2026-10-05） */
+  .btn-row{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:0}
 
   /* ── 段落 ─────────────────────────────────────────────────────────── */
   section{padding-top:56px}
@@ -245,10 +251,6 @@
 </head>
 <body>
 
-<p class="draft">
-  上線前請核對「下載迷迷」的連結（在檔尾 <code>CTA_URL</code>），確認後移除 &lt;html&gt; 的 data-build 屬性即可。
-</p>
-
 <nav class="nav" aria-label="章節導覽">
   <ul>
     <li><a href="#start">開始使用</a></li>
@@ -258,6 +260,7 @@
     <li><a href="#blindbox">盲盒與爆米花</a></li>
     <li><a href="#meetup">找影伴</a></li>
     <li><a href="#faq">常見問題</a></li>
+    <li><a href="../plans/">方案與權益</a></li>
   </ul>
 </nav>
 
@@ -269,10 +272,16 @@
     <h1>三分鐘上手迷迷</h1>
     <!-- 這一句照商店簡短說明，PM 已定稿，不要改 -->
     <p class="lede">查場次、收藏票根、蓋章集冊——還能遇見跟你看同一場電影的影伴。</p>
-    <a class="btn" data-cta href="#">下載迷迷</a>
+    <!--
+      兩平台 10/3 上架後改成兩顆直連（2026-10-05 PRD 1-1）。網址直接寫在這裡，
+      不經過 JS —— 腳本沒載到的時候按鈕照樣能用。
+    -->
+    <p class="btn-row">
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.mimicinephile.mimi" rel="noopener">Google Play</a>
+      <a class="btn" href="https://apps.apple.com/tw/app/id6811598741" rel="noopener">App Store</a>
+    </p>
     <p class="btn-note">
-      封測期間僅限受邀測試者。<strong>先按上面的按鈕加入測試</strong>，
-      加入後才能在 Google Play 下載。
+      Android 與 iPhone 都可以下載。<br>限台灣地區、18 歲以上。
     </p>
 
     <div class="frame-wrap" style="margin-top:32px" data-aos="fade-up">
@@ -322,7 +331,7 @@
       邀請碼只能在註冊當下填，完成後不能再補。
     </p>
     <p class="note">
-      收不到信先看垃圾郵件匣。<strong>驗證信請在手機上開啟</strong>——在電腦開會停在網頁，回不到 App。
+      收不到信先看垃圾郵件匣。<strong>驗證信請在手機上開啟</strong>（iPhone 與 Android 都一樣）——在電腦開會停在網頁，回不到 App。
     </p>
 
     <div class="frame-wrap" data-aos="fade-up">
@@ -674,25 +683,11 @@
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.454.0/dist/umd/lucide.min.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════════════
-   CTA 連結：改這一個常數，全頁生效（PRD 驗收第 4 條）
-   ─────────────────────────────────────────────────────────────────────
-   封測期 = Play 封閉測試 opt-in 連結
-   上架後 = 商店連結 https://play.google.com/store/apps/details?id=com.mimicinephile.mimi
-
-   ✅ **2026-08-29 已由產品負責人從 Play Console 核對，一字不差。**
-
-   🔑 **Play Console 給的是兩條，這裡要用「網路」那一條。**
-      · 網路（本頁用的）  .../apps/testing/<套件名>
-        → 加入測試的同意頁。**沒有先在這裡加入，商店頁會顯示「找不到這個項目」。**
-      · Android 裝置       .../store/apps/details?id=<套件名>
-        → 商店頁本身，**只有已經加入測試的人打得開**。
-      所以順序不能反：先加入，才下載。本頁的按鈕是給還沒加入的人看的，
-      用商店連結會把人帶到一個「找不到項目」的畫面，而那看起來像 App 不存在。
-
-   ⚠ 正式上架之後要換成商店連結（那時人人都打得開）：
-      https://play.google.com/store/apps/details?id=com.mimicinephile.mimi
+   下載按鈕：2026-10-05 已改為兩商店直連，網址寫在 Hero 的兩顆按鈕上，不再經過 JS。
+   ❌ ~~原本是一個連結常數 → Play 的測試招募頁~~
+      —— 上架前只有已登記的人打得開商店頁,所以當時必須先導去招募頁。
+      兩平台 10/3 上架後人人都打得開商店頁,那個前提不存在了。
    ═══════════════════════════════════════════════════════════════════ */
-const CTA_URL = 'https://play.google.com/apps/testing/com.mimicinephile.mimi';
 
 /*
   ⚠ 每一段都各自 try：任何一個 CDN 沒載到，只讓它自己失效，
@@ -700,8 +695,6 @@ const CTA_URL = 'https://play.google.com/apps/testing/com.mimicinephile.mimi';
 */
 (function () {
   'use strict';
-
-  document.querySelectorAll('[data-cta]').forEach(function (a) { a.href = CTA_URL; });
 
   try {
     if (window.Swiper) {
