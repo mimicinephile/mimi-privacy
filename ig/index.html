@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>迷迷 — 下載</title>
+<style>
+  body{margin:0;background:#0b0b0b;color:#f2f2f2;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}
+  main{padding:32px 20px;max-width:360px}
+  h1{font-size:22px;margin:0 0 8px}
+  p{color:#bdbdbd;font-size:14px;line-height:1.6;margin:0 0 20px}
+  a.btn{display:block;margin:10px 0;padding:14px 18px;border-radius:12px;background:#f5c518;color:#111;font-weight:700;text-decoration:none}
+  a.btn.alt{background:#222;color:#f2f2f2;border:1px solid #333}
+</style>
+</head>
+<body>
+<main>
+  <h1>迷迷</h1>
+  <p>查場次、集票根、找影伴。正在帶你到商店⋯</p>
+  <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.mimicinephile.mimi&referrer=utm_source%3Dinstagram%26utm_medium%3Dsocial%26utm_campaign%3Dlaunch">Google Play 下載</a>
+  <a class="btn alt" id="ios" href="https://apps.apple.com/tw/app/apple-store/id6811598741?pt=129408483&ct=instagram&mt=8">App Store 下載</a>
+  <p style="margin-top:16px;font-size:12px">限台灣地區、18 歲以上。</p>
+</main>
+<script>
+  // 來源標記只放在網址上:Android 走 Play 的 referrer 參數,Play Console「取得來源」會列成 instagram。
+  // iOS 走 App Store Connect 的宣傳活動連結(ct=instagram),App Analytics「宣傳活動」會列成 instagram。
+  (function(){
+    var ua = navigator.userAgent || "";
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var target = isIOS ? document.getElementById("ios").href
+               : isAndroid ? document.getElementById("android").href
+               : null;
+    if (target) { setTimeout(function(){ location.replace(target); }, 400); }
+  })();
+</script>
+</body>
+</html>
