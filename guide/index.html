@@ -99,7 +99,7 @@
   @media (min-width:480px){ :root{ --s:1 } }
 
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth; scroll-padding-top:64px}
+  html{scroll-behavior:smooth; scroll-padding-top:107px} /* 兩層導覽 96px + 11px;下面 JS 另外量實際高度 */
   body{
     margin:0;
     background:var(--bg);
@@ -158,6 +158,30 @@
     padding:6px 12px; border-radius:999px;
   }
   .nav a:hover,.nav a:focus-visible{background:rgba(200,40,30,.07); color:var(--accent)}
+  /*
+    兩層導覽(2026-10-18 產品負責人裁):第一排是「使用教學|方案與權益」兩頁的切換,目前這頁實心;
+    第二排是這一頁自己的段落。⚠ 這段樣式與另一頁(guide / plans)一模一樣,改一邊要改另一邊。
+  */
+  .nav-pages{display:flex; gap:6px; padding:8px 12px 0}
+  .nav .nav-pages a{color:var(--fg); font-size:15px; font-weight:700; border:1px solid var(--line); padding:5px 14px}
+  .nav .nav-pages a:hover,.nav .nav-pages a:focus-visible{border-color:var(--accent); background:rgba(200,40,30,.07); color:var(--accent)}
+  .nav .nav-pages a[aria-current="page"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .nav .nav-pages + ul{padding-top:6px}
+  /* 目前捲到的那一段(下面那段 JS 用 IntersectionObserver 掛上去;JS 沒載到就沒有高亮,導覽照樣能點) */
+  .nav a.is-active{background:rgba(200,40,30,.07); color:var(--accent)}
+
+  /* 回到頂部:捲超過一個視窗高才出現(JS 控制);沒有 JS 就一直藏著 */
+  .to-top{
+    position:fixed; right:16px; bottom:20px; z-index:31;
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--accent); color:#fff; text-decoration:none;
+    font-size:20px; font-weight:700; line-height:1;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
+    opacity:0; pointer-events:none; transform:translateY(8px);
+    transition:opacity .2s, transform .2s;
+  }
+  .to-top.is-shown{opacity:1; pointer-events:auto; transform:none}
 
   main{max-width:760px; margin:0 auto; padding:0 20px 72px}
 
@@ -246,12 +270,17 @@
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     [data-aos]{opacity:1 !important; transform:none !important; transition:none !important}
+    .to-top{transition:none}
   }
 </style>
 </head>
 <body>
 
-<nav class="nav" aria-label="章節導覽">
+<nav class="nav" aria-label="頁面與章節導覽">
+  <div class="nav-pages">
+    <a href="../guide/" aria-current="page">使用教學</a>
+    <a href="../plans/">方案與權益</a>
+  </div>
   <ul>
     <li><a href="#start">開始使用</a></li>
     <li><a href="#showtimes">查場次</a></li>
@@ -260,7 +289,6 @@
     <li><a href="#blindbox">盲盒與爆米花</a></li>
     <li><a href="#meetup">找影伴</a></li>
     <li><a href="#faq">常見問題</a></li>
-    <li><a href="../plans/">方案與權益</a></li>
   </ul>
 </nav>
 
@@ -311,7 +339,7 @@
   </header>
 
   <!-- ══ 1. 開始使用 ═══════════════════════════════════════════════ -->
-  <section id="start" data-aos="fade-up">
+  <section id="start" data-aos="fade">
     <div class="sec-head"><i data-lucide="download"></i><h2>開始使用</h2></div>
     <p class="sec-lead">安裝之後用 Email 註冊，收一封驗證信就完成了。</p>
     <ol class="steps">
@@ -349,7 +377,7 @@
   </section>
 
   <!-- ══ 2. 查場次 ═════════════════════════════════════════════════ -->
-  <section id="showtimes" data-aos="fade-up">
+  <section id="showtimes" data-aos="fade">
     <div class="sec-head"><i data-lucide="map-pin"></i><h2>查場次</h2></div>
     <p class="sec-lead">允許定位之後，首頁會列出離你最近的十間影城，每間都有距離。要找別的地方就用縣市篩選或搜尋。</p>
     <ol class="steps">
@@ -418,7 +446,7 @@
   </section>
 
   <!-- ══ 3. 票根與集章 ═════════════════════════════════════════════ -->
-  <section id="tickets" data-aos="fade-up">
+  <section id="tickets" data-aos="fade">
     <div class="sec-head"><i data-lucide="ticket"></i><h2>票根與集章</h2></div>
     <p class="sec-lead">看完電影拍下票根，通過驗證就蓋一枚章。章會累積成集章冊，集滿解鎖獎勵。</p>
     <ol class="steps">
@@ -479,7 +507,7 @@
   </section>
 
   <!-- ══ 4. 我的小屋 ═══════════════════════════════════════════════ -->
-  <section id="house" data-aos="fade-up">
+  <section id="house" data-aos="fade">
     <div class="sec-head"><i data-lucide="home"></i><h2>我的小屋</h2></div>
     <!--
       🔴 小屋牆上那面木牌是**盲盒的「願望清單」**(掛系列、給赴約複製用，格數 0/1/3)，
@@ -547,7 +575,7 @@
           描述請維持「用爆米花開盲盒 → 得到裝飾」的事實陳述。
        ⚠ 改這一段文案前先回頭讀這條註解。
   ══════════════════════════════════════════════════════════════════ -->
-  <section id="blindbox" data-aos="fade-up">
+  <section id="blindbox" data-aos="fade">
     <div class="sec-head"><i data-lucide="gift"></i><h2>盲盒與爆米花</h2></div>
     <p class="sec-lead">爆米花是站內的免費點數，可以用來買盲盒；開出來的收藏可以拿去佈置小屋。</p>
     <ol class="steps">
@@ -577,7 +605,7 @@
   </section>
 
   <!-- ══ 6. 找影伴 ═════════════════════════════════════════════════ -->
-  <section id="meetup" data-aos="fade-up">
+  <section id="meetup" data-aos="fade">
     <div class="sec-head"><i data-lucide="users"></i><h2>找影伴</h2></div>
     <p class="sec-lead">把想看的電影加進想看清單，就有機會遇到想看同一場的人；談好時間之後一起去看。</p>
     <ol class="steps">
@@ -623,7 +651,7 @@
   </section>
 
   <!-- ══ 7. FAQ ════════════════════════════════════════════════════ -->
-  <section id="faq" class="faq" data-aos="fade-up">
+  <section id="faq" class="faq" data-aos="fade">
     <div class="sec-head"><i data-lucide="help-circle"></i><h2>常見問題</h2></div>
 
     <details>
@@ -677,6 +705,9 @@
 
 </main>
 
+<!-- 回到頂部:href="#" 是沒有 JS 時的退路(原生錨點回頁首) -->
+<a class="to-top" href="#" aria-label="回到頂部">↑</a>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -725,6 +756,167 @@
   try {
     if (window.lucide) { lucide.createIcons(); }
   } catch (e) { /* 圖示是裝飾，缺了不影響理解 */ }
+
+  /*
+    ── 頂部導覽(2026-10-18《網頁指南頁-頂部導覽無法跳轉-報修單》)─────────────────
+    原本是純 <a href="#…"> 錨點 + CSS 平滑捲動,兩個問題:
+    ① 進頁帶 #start 時,瀏覽器在 AOS 淡入「之前」就跳了 —— section 那時帶著 100px 的位移,
+       淡入完成後標題往上縮回 100px,被導覽列蓋住(實測停在 −36,應該是 64)。
+       → section 改成不帶位移的 fade(上面 HTML),這裡載入完成後再校正一次。
+    ② 原生平滑捲動要等畫面一格一格畫;頁面畫得慢的時候,點下去好幾秒才開始動,
+       而且會被下一次點擊蓋掉(實測慢的分頁裡延遲到 3 秒以上)—— 看起來就是「點了沒反應 / 跳錯」。
+       → 由這裡接管:自己算位置(不受 transform 影響)、量導覽列實際高度,
+         捲完沒到位就直接跳過去;同一個錨點重複點也會捲。
+    ⚠ 只有這段 JS 正常跑起來才 preventDefault;任何一步出錯就 return,讓瀏覽器走原生錨點(退路)。
+    ⚠ 第一排兩頁切換是跨頁連結,不接管(只接管 href 以 # 開頭的)。
+    ⚠ 這一段與方案頁(plans)一模一樣,改一邊要改另一邊。
+  */
+  try {
+    var nav = document.querySelector('.nav');
+    var navList = nav && nav.querySelector('ul');
+    var links = nav ? Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]')) : [];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var GAP = 11; // 標題與導覽列之間留的空(CSS 的 scroll-padding-top 107 = 兩層導覽 96 + 11)
+
+    // 頁面座標用 offsetTop 一路加上去 —— 不吃 transform,淡入動畫做到一半也算得準
+    function pageTop(el) {
+      var y = 0;
+      while (el) { y += el.offsetTop; el = el.offsetParent; }
+      return y;
+    }
+    function targetY(el) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      return Math.max(0, Math.min(max, pageTop(el) - (nav ? nav.offsetHeight : 0) - GAP));
+    }
+    /*
+      瞬間跳:不寫 behavior:'instant'(較舊的 Safari 不認這個值會直接丟錯),
+      改成暫時把 html 的 CSS 平滑捲動關掉再捲,捲完還原。
+    */
+    function jump(y) {
+      var html = document.documentElement, prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      window.scrollTo(0, y);
+      html.style.scrollBehavior = prev;
+    }
+    function glide(y) {
+      try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, y); }
+    }
+    /*
+      補跳:每 150ms 看一次,**位置停住了**才判斷有沒有到。
+      ⚠ 不可以用固定秒數硬跳:平滑捲動還在動的時候插一個瞬間捲動,Chrome 會把剩下的動畫接著跑完,
+        反而停偏 6–10px(10/18 無頭 Chrome 實測)。
+      平滑捲動一直沒開始(頁面畫得慢)= 位置也是停住的 → 約半秒後直接跳過去。
+      使用者自己捲(滾輪 / 觸控 / 鍵盤)或按「回到頂部」就取消,不跟他搶。
+    */
+    var settle = null;
+    function stopSettle() { if (settle) { clearInterval(settle); settle = null; } }
+    // watchMs:至少盯這麼久才收手(進頁用:瀏覽器自己的錨點跳轉可能比我們晚,會把位置帶偏)
+    function goTo(el, smooth, watchMs) {
+      stopSettle();
+      if (smooth && !reduce) glide(targetY(el)); else jump(targetY(el));
+      var started = Date.now(), last = -1, still = 0;
+      settle = setInterval(function () {
+        var y = Math.round(window.scrollY);
+        still = (y === last) ? still + 1 : 0;
+        last = y;
+        if (Math.abs(y - targetY(el)) <= 4) {
+          if (Date.now() - started >= (watchMs || 0)) stopSettle();
+          return;
+        }
+        if ((still >= 2 && Date.now() - started >= 450) || Date.now() - started > 4000) {
+          jump(targetY(el));
+          stopSettle();
+        }
+      }, 150);
+    }
+    ['wheel', 'touchstart', 'keydown'].forEach(function (t) {
+      window.addEventListener(t, stopSettle, { passive: true });
+    });
+    window.__mimiStopSettle = stopSettle; // 給下面「回到頂部」用
+    function sectionOf(hash) {
+      if (!hash || hash.length < 2) return null;
+      try { return document.getElementById(decodeURIComponent(hash.slice(1))); } catch (e) { return null; }
+    }
+
+    links.forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var el = sectionOf(a.getAttribute('href'));
+        if (!el) return; // 找不到目標就交給瀏覽器
+        ev.preventDefault();
+        goTo(el, true);
+        var h = a.getAttribute('href');
+        if (location.hash !== h) history.pushState(null, '', h);
+      });
+    });
+
+    // 上一頁 / 下一頁換了 #… 時也要捲(pushState 不會自己捲)
+    window.addEventListener('popstate', function () {
+      var el = sectionOf(location.hash);
+      if (el) goTo(el, false);
+    });
+
+    // 進頁帶 #…:圖片、字型、套件都好了之後再校正一次(原生先跳的位置會偏)
+    window.addEventListener('load', function () {
+      var el = sectionOf(location.hash);
+      if (el) setTimeout(function () { goTo(el, false, 1500); }, 120);
+    });
+
+    // 目前捲到哪一段 → 上排那顆高亮,手機上把它捲進可視範圍(只捲 ul,不捲頁面)
+    if ('IntersectionObserver' in window && links.length) {
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+      var ids = Object.keys(byId);
+      var setActive = function (id) {
+        links.forEach(function (a) { a.classList.toggle('is-active', a === byId[id]); });
+        var a = byId[id];
+        if (a && navList && navList.scrollWidth > navList.clientWidth) {
+          var left = a.offsetLeft - navList.offsetLeft;
+          if (left < navList.scrollLeft || left + a.offsetWidth > navList.scrollLeft + navList.clientWidth) {
+            navList.scrollLeft = Math.max(0, left - 12);
+          }
+        }
+      };
+      /*
+        目前段落 = 標題已經捲到導覽列下緣(再往下 1/3 個畫面內)的最後一段;
+        捲到頁底時一律算最後一段(常見問題在頁底捲不到最上面,不這樣它永遠亮不起來)。
+        IntersectionObserver 只負責「有段落跨過界線了」的通知,不是每次捲動都算。
+      */
+      var pick = function () {
+        var line = (nav ? nav.offsetHeight : 53) + GAP + window.innerHeight / 3;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var cur = null;
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= line) cur = id;
+        });
+        if (window.scrollY >= max - 2) cur = ids[ids.length - 1];
+        setActive(cur);
+      };
+      var io = new IntersectionObserver(pick, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      window.addEventListener('load', pick);
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    }
+  } catch (e) { /* 這段壞了也沒關係:錨點本身照樣能跳(原生) */ }
+
+  // 回到頂部:捲超過一個視窗高才出現
+  try {
+    var toTop = document.querySelector('.to-top');
+    if (toTop) {
+      var onScroll = function () { toTop.classList.toggle('is-shown', window.scrollY > window.innerHeight); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        if (window.__mimiStopSettle) window.__mimiStopSettle(); // 上一次導覽的補跳不要把人拉回去
+        // CSS 已經是平滑捲動(減少動態時 CSS 自己改成 auto),這裡直接捲就好
+        window.scrollTo(0, 0);
+        if (location.hash) history.pushState(null, '', location.pathname + location.search);
+      });
+    }
+  } catch (e) { /* 沒有這顆鈕也不影響閱讀 */ }
 })();
 </script>
 
