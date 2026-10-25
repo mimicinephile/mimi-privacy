@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/admin/" />
     <script>
-      if (location.pathname.indexOf("/mimi-privacy/admin/") !== 0) {
+      if (location.pathname.indexOf("/mimi-privacy/forum/") === 0) {
+        location.replace("/mimi-privacy/forum/" + '?p=' + encodeURIComponent(location.pathname.slice(19) + location.search));
+      } else if (location.pathname.indexOf("/mimi-privacy/admin/") !== 0) {
         location.replace("/mimi-privacy/admin/");
       }
     </script>
@@ -40,6 +42,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/mimi-privacy/admin/_expo/static/js/web/entry-dd843570f01c209dfb5c038451f59972.js" defer></script>
+  <script src="/mimi-privacy/admin/_expo/static/js/web/entry-aee0b2f71fabfbf225f50bab9287ee9e.js" defer></script>
 </body>
 </html>
