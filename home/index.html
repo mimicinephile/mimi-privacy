@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>迷迷 mimi — 看電影這件事的一站式 App</title>
+<meta name="description" content="迷迷 mimi：查場次、收票根、逛電影論壇、找人一起看電影。Android 與 iPhone 都能下載。">
+<meta name="robots" content="noindex, nofollow">
+
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  迷迷官網首頁 /home/(論壇網頁版 PRD §3 W-12;PM 10/26 C-3 甲、C-4 「活動」= /goals/)
+
+  ── 部署 ────────────────────────────────────────────────────────────────
+  預覽期:本資料夾整包複製到 mimi-privacy repo 的 home/ 後 push。
+    網址 https://mimicinephile.github.io/mimi-privacy/home/
+  🔺 網域切換那天(PRD §6):本頁換成 mimi-privacy 的根目錄 index.html,原本的隱私權政策搬到 privacy/。
+     那天要改三件:① 下面的連結全部去掉開頭的「../」(根目錄看出去就是 guide/、plans/…)
+     ② 頁尾「隱私權政策」改指 privacy/ ③ 拿掉 robots 那一行 noindex,補 canonical。
+  ⚠ 預覽期刻意 noindex:網域還沒切,不要讓 github.io 這個網址先被收錄。
+
+  ── 外部相依:零 ────────────────────────────────────────────────────────
+  沿 /plans/、/goals/ 的驗收條件:沒有圖片、沒有線上字型、沒有 CDN、不埋分析。頁面不收集資料。
+
+  ── 連結從哪裡來 ────────────────────────────────────────────────────────
+  兩個商店網址 = app 的 constants/site.ts(PLAY_STORE、APP_STORE_WEB),改包名 / Apple ID 時兩邊一起改。
+  論壇入口預覽期指論壇預覽包 ../forum/(noindex 的那一份),網域切換後是 forum/。
+═══════════════════════════════════════════════════════════════════════════
+-->
+
+<style>
+  :root{
+    --bg:#F8F6F0; --fg:#1C1B18; --card:#FFFFFF; --accent:#C8281E;
+    --muted:#6B6862; --line:#E8E4DA;
+    --shadow:0 2px 24px rgba(28,27,24,.07);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",
+                -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.7; font-size:16px; -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+  }
+  a{color:var(--accent)}
+
+  main{max-width:760px; margin:0 auto; padding:0 20px 72px}
+  .hero{text-align:center; padding:72px 0 8px}
+  .hero .mark{font-size:44px; line-height:1}
+  .hero h1{font-size:30px; line-height:1.3; margin:14px 0 10px; font-weight:700}
+  .hero .lede{margin:0 auto 28px; max-width:26em; color:var(--muted); font-size:17px}
+
+  .stores{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+  .store{
+    display:inline-block; min-width:180px; text-align:center; text-decoration:none;
+    padding:12px 20px; border-radius:999px; font-weight:700; font-size:15.5px;
+    background:var(--fg); color:#fff;
+  }
+  .store.alt{background:var(--card); color:var(--fg); border:1px solid var(--line)}
+  .store:hover,.store:focus-visible{opacity:.88}
+
+  .entries{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin-top:56px}
+  @media (max-width:520px){ .entries{grid-template-columns:1fr} }
+  .entry{
+    display:block; text-decoration:none; color:var(--fg);
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px; box-shadow:var(--shadow);
+  }
+  .entry:hover,.entry:focus-visible{border-color:var(--accent)}
+  .entry h2{font-size:17px; margin:0 0 4px; font-weight:700}
+  .entry h2::after{content:" ›"; color:var(--accent)}
+  .entry p{margin:0; color:var(--muted); font-size:14.5px}
+
+  footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; line-height:2}
+</style>
+</head>
+<body>
+
+<main>
+
+  <header class="hero">
+    <div class="mark" aria-hidden="true">🎬</div>
+    <h1>迷迷 mimi</h1>
+    <p class="lede">看電影這件事的一站式 App：查場次、收票根、逛論壇，還能找人一起進場。</p>
+    <div class="stores">
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.mimicinephile.mimi" rel="noopener">Google Play 下載</a>
+      <a class="store alt" href="https://apps.apple.com/app/id6811598741" rel="noopener">App Store 下載</a>
+    </div>
+  </header>
+
+  <nav class="entries" aria-label="網站入口">
+    <a class="entry" href="../forum/">
+      <h2>論壇</h2>
+      <p>影評、討論、映後去處。不用登入就能看。</p>
+    </a>
+    <a class="entry" href="../guide/">
+      <h2>使用教學</h2>
+      <p>票根、小屋、盲盒、配對，第一次用從這裡開始。</p>
+    </a>
+    <a class="entry" href="../plans/">
+      <h2>方案</h2>
+      <p>免費、L1 影迷、L2 首映各有什麼，一頁比較。</p>
+    </a>
+    <a class="entry" href="../goals/">
+      <h2>活動</h2>
+      <p>邀請目標與全服衝刺的完整獎勵表。</p>
+    </a>
+  </nav>
+
+  <footer>
+    <a href="../">隱私權政策</a>　·
+    <a href="../terms/">使用條款</a>　·
+    <a href="mailto:mimicinephile@gmail.com">聯絡我們</a><br>
+    迷迷 mimi ・ Bitter DEV ・ <a href="mailto:mimicinephile@gmail.com">mimicinephile@gmail.com</a><br>
+    © 2026 Bitter DEV
+  </footer>
+
+</main>
+</body>
+</html>
