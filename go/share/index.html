@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>迷迷 — 下載</title>
+<!-- LINE / Threads / FB 的預覽卡只讀這幾行(爬蟲不跑 JS),所以不隨網址上的邀請碼變 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="迷迷">
+<meta property="og:title" content="迷迷">
+<meta property="og:description" content="查場次、集票根、找影伴。一起來迷迷看電影！">
+<meta property="og:url" content="https://mimicinephile.github.io/mimi-privacy/go/share/">
+<meta property="og:image" content="https://mimicinephile.github.io/mimi-privacy/go/share/og-icon.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<style>
+  body{margin:0;background:#0b0b0b;color:#f2f2f2;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}
+  main{padding:32px 20px;max-width:360px}
+  h1{font-size:22px;margin:0 0 8px}
+  p{color:#bdbdbd;font-size:14px;line-height:1.6;margin:0 0 20px}
+  a.btn{display:block;margin:10px 0;padding:14px 18px;border-radius:12px;background:#f5c518;color:#111;font-weight:700;text-decoration:none}
+  a.btn.alt{background:#222;color:#f2f2f2;border:1px solid #333}
+</style>
+</head>
+<body>
+<main>
+  <h1>迷迷</h1>
+  <p id="lead">查場次、集票根、找影伴。正在帶你到商店⋯</p>
+  <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.mimicinephile.mimi&referrer=utm_source%3Dshare%26utm_medium%3Dmonth">Google Play 下載</a>
+  <a class="btn alt" id="ios" href="https://apps.apple.com/tw/app/apple-store/id6811598741?pt=129408483&ct=share&mt=8">App Store 下載</a>
+  <p style="margin-top:16px;font-size:12px">限台灣地區、18 歲以上。</p>
+</main>
+<script>
+  // 同 go/threads/,差在兩件:① 讀網址參數 c(邀請碼,可空),帶進 Play 的 referrer 當 utm_campaign;
+  //   ② iOS 的 ct 固定 share —— App Store 的宣傳活動代號要先在 App Store Connect 登記,不能放每個人的碼。
+  // c 只收英數、底線、連字號(最多 32 字),其餘一律當沒帶:碼是放進別人網址裡的,不讓頁面替任何字串背書。
+  // 沒帶 c 就不放 utm_campaign(Play「取得來源」照樣列成 share)。
+  (function(){
+    var m = /[?&]c=([^&#]*)/.exec(location.search);
+    var code = "";
+    try { code = m ? decodeURIComponent(m[1].replace(/\+/g, " ")).trim() : ""; } catch (e) { code = ""; }   // 壞掉的 %XX 不讓整段停住
+    if (!/^[A-Za-z0-9_-]{1,32}$/.test(code)) code = "";
+
+    var referrer = "utm_source=share&utm_medium=month" + (code ? "&utm_campaign=" + code : "");
+    var android = document.getElementById("android");
+    android.href = "https://play.google.com/store/apps/details?id=com.mimicinephile.mimi&referrer=" + encodeURIComponent(referrer);
+
+    var ua = navigator.userAgent || "";
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var target = isIOS ? document.getElementById("ios").href
+               : isAndroid ? android.href
+               : null;
+    if (target) { setTimeout(function(){ location.replace(target); }, 400); }
+    else { document.getElementById("lead").textContent = "查場次、集票根、找影伴。用手機打開這一頁，或選下面的商店下載。"; }
+  })();
+</script>
+</body>
+</html>
