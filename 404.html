@@ -2,12 +2,14 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
-    <link rel="canonical" href="https://mimicinephile.github.io/mimi-privacy/admin/" />
+    <link rel="canonical" href="https://mimicinephile.com/admin/" />
     <script>
-      if (location.pathname.indexOf("/mimi-privacy/forum/") === 0) {
-        location.replace("/mimi-privacy/forum/" + '?p=' + encodeURIComponent(location.pathname.slice(19) + location.search));
-      } else if (location.pathname.indexOf("/mimi-privacy/admin/") !== 0) {
-        location.replace("/mimi-privacy/admin/");
+      if (location.pathname.indexOf("/forum/") === 0) {
+        location.replace("/forum/" + '?p=' + encodeURIComponent(location.pathname.slice(6) + location.search));
+      } else if (location.pathname === "/") {
+        location.replace("/admin/");
+      } else if (location.pathname.indexOf("/admin/") !== 0) {
+        location.replace("/");
       }
     </script>
     <meta name="robots" content="noindex, nofollow" />
@@ -32,8 +34,8 @@
         flex: 1;
       }
     </style>
-  <link rel="icon" href="/mimi-privacy/admin/favicon.ico"/><link rel="preload" href="/mimi-privacy/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
-<link rel="stylesheet" href="/mimi-privacy/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
+  <link rel="icon" href="/admin/favicon.ico"/><link rel="preload" href="/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
+<link rel="stylesheet" href="/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
@@ -42,6 +44,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/mimi-privacy/admin/_expo/static/js/web/entry-4e49db2b589cb75ebfcb76a7a291e40b.js" defer></script>
+  <script src="/admin/_expo/static/js/web/entry-21ba8e051c4c1ba1f01864a0818c9568.js" defer></script>
 </body>
 </html>
