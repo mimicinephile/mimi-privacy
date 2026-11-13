@@ -2,13 +2,17 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
-    <link rel="canonical" href="https://mimicinephile.com/admin/" />
+    <link rel="canonical" href="https://mimicinephile.com/console/" />
     <script>
-      if (location.pathname.indexOf("/forum/") === 0) {
-        location.replace("/forum/" + '?p=' + encodeURIComponent(location.pathname.slice(6) + location.search));
+      if (location.pathname.indexOf("/community/") === 0) {
+        location.replace("/community/" + '?p=' + encodeURIComponent(location.pathname.slice(10) + location.search));
+      } else if (location.pathname.indexOf("/forum/") === 0 || location.pathname === "/forum") {
+        location.replace("/community/" + '?p=' + encodeURIComponent((location.pathname.slice(6) || '/') + location.search));
+      } else if (location.pathname.indexOf("/admin/") === 0 || location.pathname === "/admin") {
+        location.replace("/console" + (location.pathname.slice(6) || '/') + location.search + location.hash);
       } else if (location.pathname === "/") {
-        location.replace("/admin/");
-      } else if (location.pathname.indexOf("/admin/") !== 0) {
+        location.replace("/console/");
+      } else if (location.pathname.indexOf("/console/") !== 0) {
         location.replace("/");
       }
     </script>
@@ -34,8 +38,8 @@
         flex: 1;
       }
     </style>
-  <link rel="icon" href="/admin/favicon.ico"/><link rel="preload" href="/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
-<link rel="stylesheet" href="/admin/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
+  <link rel="icon" href="/console/favicon.ico"/><link rel="preload" href="/console/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
+<link rel="stylesheet" href="/console/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
@@ -44,6 +48,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/admin/_expo/static/js/web/entry-21ba8e051c4c1ba1f01864a0818c9568.js" defer></script>
+  <script src="/console/_expo/static/js/web/entry-b17a1f3e1d009df8d6e2b7eb94c2ec66.js" defer></script>
 </body>
 </html>
