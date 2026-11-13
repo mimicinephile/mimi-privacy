@@ -3,17 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('mimi-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>台南電影時刻表|8 間影城今天場次 ─ 迷迷</title>
-<meta name="description" content="台南市 8 間電影院今天共 315 場:台南南紡威秀影城、台南大遠百威秀影城、台南FOCUS威秀影城、南台電影城…。迷迷每週二、五更新。">
+<meta name="description" content="台南市 8 間電影院今天共 315 場:台南南紡威秀影城、台南大遠百威秀影城、台南FOCUS威秀影城、南台電影城…。場次每天更新兩次。">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://mimicinephile.com/cinemas/tainan/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://mimicinephile.com/"},{"@type":"ListItem","position":2,"name":"全台影城","item":"https://mimicinephile.com/cinemas/"},{"@type":"ListItem","position":3,"name":"台南市","item":"https://mimicinephile.com/cinemas/tainan/"}]}</script>
-<!-- 由 mimi-app .github/scripts/cinema-pages.mjs 產生(2026-11-13 15:42 台北),不要手改 -->
-<style>:root{--bg:#F8F6F0;--fg:#1C1B18;--card:#fff;--accent:#C8281E;--muted:#6B6862;--line:#E8E4DA}
+<!-- 由 mimi-app .github/scripts/cinema-pages.mjs 產生(2026-11-13 19:43 台北),不要手改 -->
+<style>:root{color-scheme:light;--bg:#F8F6F0;--fg:#1C1B18;--card:#fff;--accent:#C8281E;--muted:#6B6862;--line:#E8E4DA;--btn:#1C1B18;--btntext:#fff;--past:#bbb;--sheet:#fff;--pick:#fdf1ef;--l1line:#b89b3c;--l1text:#8a6d10;--scrim:rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#0B0B0F;--fg:#FFFFFF;--card:#16161C;--accent:#F5C518;--muted:rgba(255,255,255,.62);--line:#2A2A34;--btn:#F5C518;--btntext:#0B0B0F;--past:rgba(255,255,255,.28);--sheet:#1F1F27;--pick:rgba(245,197,24,.12);--l1line:rgba(245,197,24,.5);--l1text:#F5C518;--scrim:rgba(0,0,0,.6)}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0B0B0F;--fg:#FFFFFF;--card:#16161C;--accent:#F5C518;--muted:rgba(255,255,255,.62);--line:#2A2A34;--btn:#F5C518;--btntext:#0B0B0F;--past:rgba(255,255,255,.28);--sheet:#1F1F27;--pick:rgba(245,197,24,.12);--l1line:rgba(245,197,24,.5);--l1text:#F5C518;--scrim:rgba(0,0,0,.6)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}main{max-width:760px;margin:0 auto;padding:0 16px 64px}
 .top{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.top a.brand{font-weight:700;font-size:18px;color:var(--fg);text-decoration:none}.pill{background:var(--fg);color:#fff;border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:700;text-decoration:none}
+.top a.brand{font-weight:700;font-size:18px;color:var(--fg);text-decoration:none}.theme{display:none;margin-left:auto;margin-right:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}.pill{background:var(--btn);color:var(--btntext);border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:700;text-decoration:none}
 .crumb{font-size:13px;color:var(--muted);margin:12px 0 0}h1{font-size:24px;line-height:1.3;margin:6px 0 2px}.meta{color:var(--muted);font-size:14px}
 .info{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0;font-size:15px}.info div{padding:3px 0}
 .upd{font-size:13px;color:var(--muted);margin:4px 0 10px}
@@ -24,25 +28,25 @@ h2{font-size:17px;margin:20px 0 4px;padding-top:8px;border-top:2px solid var(--f
 .film{padding:10px 0;border-bottom:1px solid var(--line)}.film h3{font-size:16px;margin:0}.film h3 small{font-weight:400;color:var(--muted);font-size:12.5px;margin-left:6px}
 .times{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .t{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:4px 11px;font:inherit;font-size:15.5px;font-variant-numeric:tabular-nums;color:var(--fg);cursor:pointer}
-.t.past{color:#bbb;background:transparent;cursor:default}
+.t.past{color:var(--past);background:transparent;border-color:transparent;cursor:default}
 .empty{color:var(--muted);padding:10px 0}.srcline{font-size:13px;color:var(--muted);margin:18px 0 6px}
 .near a{display:block;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}.card b{font-size:17px}
 .card .n{color:var(--accent);font-weight:700;font-size:14.5px;margin:4px 0 2px}.card .n.zero{color:var(--muted)}.card .f{font-size:13.5px;color:var(--muted)}
 .county h2{border-top:1px solid var(--line)}.county a{display:inline-block;margin:2px 14px 2px 0}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}footer a{margin-right:12px;color:var(--muted)}
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:5}.sheet-bg.on{display:block}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-width:760px;margin:0 auto;background:#fff;border-radius:18px 18px 0 0;padding:16px 16px 22px}
+.sheet-bg{position:fixed;inset:0;background:var(--scrim);display:none;z-index:5}.sheet-bg.on{display:block}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-width:760px;margin:0 auto;background:var(--sheet);color:var(--fg);border-radius:18px 18px 0 0;padding:16px 16px 22px}
 .sheet h4{margin:0;font-size:17px}.sheet .w{color:var(--muted);font-size:14px;margin:2px 0 12px}
 .hk{display:flex;flex-direction:column;gap:8px}.hk button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;font:inherit;text-align:left;cursor:pointer;color:var(--fg)}
-.hk button.on{border-color:var(--accent);background:#fdf1ef}.l1{font-size:11px;border:1px solid #b89b3c;color:#8a6d10;border-radius:4px;padding:0 5px;margin-left:6px}
+.hk button.on{border-color:var(--accent);background:var(--pick)}.l1{font-size:11px;border:1px solid var(--l1line);color:var(--l1text);border-radius:4px;padding:0 5px;margin-left:6px}
 .get{margin-top:12px;opacity:.45;transition:.15s}.get.on{opacity:1}.get p{margin:0 0 8px;font-size:13.5px;color:var(--muted)}
-.stores{display:flex;gap:8px}.stores a{flex:1;text-align:center;background:var(--fg);color:#fff;border-radius:999px;padding:9px 0;font-weight:700;font-size:14px;text-decoration:none}
+.stores{display:flex;gap:8px}.stores a{flex:1;text-align:center;background:var(--btn);color:var(--btntext);border-radius:999px;padding:9px 0;font-weight:700;font-size:14px;text-decoration:none}
 .reg{display:block;text-align:center;margin-top:10px;font-size:14px}</style>
 </head>
 <body>
 <main>
-<div class="top"><a class="brand" href="/">🎬 迷迷</a><a class="pill" href="/">下載 App</a></div>
+<div class="top"><a class="brand" href="/">🎬 迷迷</a><button class="theme" id="themeBtn" type="button" aria-label="切換淺色 / 深色"></button><a class="pill" href="/">下載 App</a></div>
 <div class="crumb"><a href="/">首頁</a> › <a href="/cinemas/">全台影城</a> › 台南市</div>
 <h1>台南市 電影時刻表</h1><div class="meta">8 間影城・今天共 315 場</div>
 <div class="card"><b><a href="/cinema/54665333/">台南南紡威秀影城</a></b><div class="f">台南市東區中華東路一段366號5樓</div><div class="n">今天 89 場・29 部片</div><div class="f">哥吉拉-0.0、聖誕驚奇夜、搶銀行先修班</div></div>
@@ -53,8 +57,18 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
 <div class="card"><b><a href="/cinema/86f2fe4f/">台南仁德秀泰影城</a></b><div class="f">台南市仁德區大同路三段759號2樓</div><div class="n">今天 21 場・8 部片</div><div class="f">哥吉拉-0.0、名偵探柯南：第30號殺人事件、搶銀行先修班</div></div>
 <div class="card"><b><a href="/cinema/1e06316c/">麻豆戲院</a></b><div class="f">台南市麻豆區興中路106號3樓</div><div class="n">今天 11 場・4 部片</div><div class="f">名偵探柯南：第30號殺人事件、哥吉拉-0.0、搶銀行先修班</div></div>
 <div class="card"><b><a href="/cinema/fd590263/">全美戲院</a></b><div class="f">台南市中西區永福路二段187號</div><div class="n">今天 1 場・1 部片</div><div class="f">黑潮</div></div>
-<div class="srcline">場次資料來源:各影城官網。迷迷每週二、五更新。</div>
+<div class="srcline">場次資料來源:各影城官網。場次每天更新兩次。</div>
 <footer><a href="/">首頁</a><a href="/community/">論壇</a><a href="/plans/">方案</a><a href="/guide/">使用教學</a><a href="/privacy/">隱私權政策</a></footer>
-</main>
+</main><script>
+(function(){
+  var b=document.getElementById('themeBtn'), d=document.documentElement; if(!b) return;
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+  function eff(){ return d.getAttribute('data-theme') || (mq&&mq.matches?'dark':'light'); }
+  function label(){ var dark=eff()==='dark'; b.textContent=dark?'☀️ 淺色':'🌙 深色'; b.setAttribute('aria-pressed', dark?'true':'false'); }
+  b.onclick=function(){ var n=eff()==='dark'?'light':'dark'; d.setAttribute('data-theme',n); try{ localStorage.setItem('mimi-theme',n); }catch(e){} label(); };
+  if(mq&&mq.addEventListener) mq.addEventListener('change',label);
+  b.style.display='inline-block'; label();
+})();
+</script>
 </body>
 </html>
