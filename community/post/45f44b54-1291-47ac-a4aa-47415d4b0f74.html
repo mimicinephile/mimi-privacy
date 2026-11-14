@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      (function () {
+        var m = /[?&]p=([^&]*)/.exec(location.search);
+        if (!m) return;
+        var p;
+        try { p = decodeURIComponent(m[1]); } catch (e) { return; }
+        if (p.charAt(0) !== '/' || p.charAt(1) === '/') return;
+        history.replaceState(null, "", "/community" + p);
+      })();
+    </script>
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>迷迷 1.4.0 版本更新 : 小馬車每日商店、新數據牌、11 月新牆｜迷迷論壇</title>
+    <meta name="description" content="迷迷 1.4.0 兩個平台都更新了(Android 10/19、iPhone 10/23)。這一版有: 小屋多了一台「每日商店」小馬車,每天早上 8 點換貨,用…" />
+    <link rel="canonical" href="https://mimicinephile.com/community/post/45f44b54-1291-47ac-a4aa-47415d4b0f74" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="迷迷" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="迷迷 1.4.0 版本更新 : 小馬車每日商店、新數據牌、11 月新牆" />
+    <meta property="og:description" content="迷迷 1.4.0 兩個平台都更新了(Android 10/19、iPhone 10/23)。這一版有: 小屋多了一台「每日商店」小馬車,每天早上 8 點換貨,用…" />
+    <meta property="og:url" content="https://mimicinephile.com/community/post/45f44b54-1291-47ac-a4aa-47415d4b0f74" />
+    <meta name="twitter:card" content="summary" />
+    <!-- 由 mimi-app .github/scripts/forum-post-pages.mjs 產生(2026-11-14 17:13 台北),不要手改;內容 = 論壇首頁那一份,只換 head -->
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="icon" href="/community/favicon.ico"/><link rel="preload" href="/community/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
+<link rel="stylesheet" href="/community/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="/community/_expo/static/js/web/entry-bf27055ed1a23ec54d80e1c0e7246791.js" defer></script>
+</body>
+</html>

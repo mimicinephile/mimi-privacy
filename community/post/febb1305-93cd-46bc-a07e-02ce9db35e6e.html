@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      (function () {
+        var m = /[?&]p=([^&]*)/.exec(location.search);
+        if (!m) return;
+        var p;
+        try { p = decodeURIComponent(m[1]); } catch (e) { return; }
+        if (p.charAt(0) !== '/' || p.charAt(1) === '/') return;
+        history.replaceState(null, "", "/community" + p);
+      })();
+    </script>
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>0.1.0（11）版本更新｜迷迷論壇</title>
+    <meta name="description" content="【小屋】 公仔變大了，日記也跟著變大，牆上的東西重新排過 新增兩面 9 月新牆：沙灘木馬、夜街手扶梯 佈置面板重做：每一區可以收合、換牆改成左右滑、挑款先選系列…" />
+    <link rel="canonical" href="https://mimicinephile.com/community/post/febb1305-93cd-46bc-a07e-02ce9db35e6e" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="迷迷" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="0.1.0（11）版本更新" />
+    <meta property="og:description" content="【小屋】 公仔變大了，日記也跟著變大，牆上的東西重新排過 新增兩面 9 月新牆：沙灘木馬、夜街手扶梯 佈置面板重做：每一區可以收合、換牆改成左右滑、挑款先選系列…" />
+    <meta property="og:url" content="https://mimicinephile.com/community/post/febb1305-93cd-46bc-a07e-02ce9db35e6e" />
+    <meta name="twitter:card" content="summary" />
+    <!-- 由 mimi-app .github/scripts/forum-post-pages.mjs 產生(2026-11-14 17:13 台北),不要手改;內容 = 論壇首頁那一份,只換 head -->
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+  <link rel="icon" href="/community/favicon.ico"/><link rel="preload" href="/community/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css" as="style">
+<link rel="stylesheet" href="/community/_expo/static/css/native-tabs.module-78b0f59737571f455720970791a36bdd.css"></head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="/community/_expo/static/js/web/entry-bf27055ed1a23ec54d80e1c0e7246791.js" defer></script>
+</body>
+</html>
