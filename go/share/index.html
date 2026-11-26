@@ -17,19 +17,36 @@
 <meta name="twitter:card" content="summary">
 <style>
   body{margin:0;background:#0b0b0b;color:#f2f2f2;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}
-  main{padding:32px 20px;max-width:360px}
+  main{padding:32px 20px;max-width:360px;width:100%;box-sizing:border-box}
   h1{font-size:22px;margin:0 0 8px}
   p{color:#bdbdbd;font-size:14px;line-height:1.6;margin:0 0 20px}
-  a.btn{display:block;margin:10px 0;padding:14px 18px;border-radius:12px;background:#f5c518;color:#111;font-weight:700;text-decoration:none}
-  a.btn.alt{background:#222;color:#f2f2f2;border:1px solid #333}
+  a.btn,button.btn{display:block;box-sizing:border-box;width:100%;margin:10px 0;padding:14px 18px;border-radius:12px;border:0;background:#f5c518;color:#111;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+  a.btn.alt,button.btn.alt{background:#222;color:#f2f2f2;border:1px solid #333}
+  #codeBox{display:none;margin:0 0 8px}
+  #code{display:inline-block;padding:10px 18px;border:1px dashed #f5c518;border-radius:12px;font:700 30px/1.2 ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;letter-spacing:4px;color:#f5c518;-webkit-user-select:all;user-select:all}
+  #status{min-height:20px;margin:8px 0 12px;font-size:13px;color:#f5c518}
+  a.small{display:none;color:#bdbdbd;font-size:13px;margin-top:6px}
+  #androidNote{display:none;font-size:12px;margin:4px 0 0}
+  .hidden{display:none !important}
 </style>
 </head>
 <body>
 <main>
   <h1>迷迷</h1>
   <p id="lead">查場次、集票根、找影伴。正在帶你到商店⋯</p>
+
+  <!-- 只有「Android + 有碼」會打開(JS);其餘情況跟原本一樣只看得到兩顆商店鈕 -->
+  <div id="codeBox">
+    <div id="code"></div>
+    <button class="btn alt" id="copy" type="button">複製邀請碼</button>
+    <div id="status" role="status" aria-live="polite"></div>
+  </div>
+
+  <button class="btn hidden" id="main" type="button"></button>
   <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.mimicinephile.mimi&referrer=utm_source%3Dshare%26utm_medium%3Dmonth">Google Play 下載</a>
   <a class="btn alt" id="ios" href="https://apps.apple.com/tw/app/apple-store/id6811598741?pt=129408483&ct=share&mt=8">App Store 下載</a>
+  <a class="small" id="other"></a>
+  <p id="androidNote">從這裡安裝，註冊時會自動幫你帶入邀請碼。</p>
   <p style="margin-top:16px;font-size:12px">限台灣地區、18 歲以上。</p>
 </main>
 <script>
@@ -37,6 +54,12 @@
   //   ② iOS 的 ct 固定 share —— App Store 的宣傳活動代號要先在 App Store Connect 登記,不能放每個人的碼。
   // c 只收英數、底線、連字號(最多 32 字),其餘一律當沒帶:碼是放進別人網址裡的,不讓頁面替任何字串背書。
   // 沒帶 c 就不放 utm_campaign(Play「取得來源」照樣列成 share)。
+  //
+  // 2026-11-26 改(PM 11/26「七」§三):**Android + 有碼**不再自動跳 play.google.com ——
+  //   Telegram / IG / FB 這類 App 內建瀏覽器會把那個網址當網頁開,在那頁按安裝,Play 拿不到 referrer,
+  //   碼從 11/3 上線起一次都沒帶進 App(正式站 utm_source=share 0 筆;go/invite 同一天實機證實)。
+  //   改成跟 go/invite 一樣:顯示碼 + 一顆鈕「複製邀請碼，前往 Google Play」,按下用 intent:// 直接叫 Play 商店 App
+  //   (intent 要使用者按下才放行,所以不能自動跳)。iPhone、電腦、沒碼**照舊**(下面第一段原封不動)。
   (function(){
     var m = /[?&]c=([^&#]*)/.exec(location.search);
     var code = "";
@@ -45,16 +68,94 @@
 
     var referrer = "utm_source=share&utm_medium=month" + (code ? "&utm_campaign=" + code : "");
     var android = document.getElementById("android");
+    var ios = document.getElementById("ios");
     android.href = "https://play.google.com/store/apps/details?id=com.mimicinephile.mimi&referrer=" + encodeURIComponent(referrer);
 
     var ua = navigator.userAgent || "";
     var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     var isAndroid = /Android/i.test(ua);
-    var target = isIOS ? document.getElementById("ios").href
-               : isAndroid ? android.href
-               : null;
-    if (target) { setTimeout(function(){ location.replace(target); }, 400); }
-    else { document.getElementById("lead").textContent = "查場次、集票根、找影伴。用手機打開這一頁，或選下面的商店下載。"; }
+
+    // ── 照舊:iPhone(有沒有碼都一樣)、沒碼的 Android、電腦 ──
+    if (!(isAndroid && code)) {
+      var target = isIOS ? ios.href
+                 : isAndroid ? android.href
+                 : null;
+      if (target) { setTimeout(function(){ location.replace(target); }, 400); }
+      else { document.getElementById("lead").textContent = "查場次、集票根、找影伴。用手機打開這一頁，或選下面的商店下載。"; }
+      return;
+    }
+
+    // ── Android + 有碼:跟 go/invite 同一套(字只換第一句) ──
+    // 顯示與複製的碼轉成大寫:App 輸入框本來就會轉大寫(normalizeInviteCode),這裡只是讓人看的跟 App 一樣。
+    var shown = code.toUpperCase();
+    document.getElementById("lead").textContent = "查場次、集票根、找影伴。註冊時填這組邀請碼：";
+    document.getElementById("code").textContent = shown;
+    document.getElementById("codeBox").style.display = "block";
+    document.getElementById("androidNote").style.display = "block";
+    var status = document.getElementById("status");
+
+    // 複製:先試 Clipboard API;不給就退回選取 + execCommand;兩種都不行就把碼反白、說「長按複製」。
+    function selectCode(){
+      var el = document.getElementById("code");
+      try { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {}
+    }
+    function legacyCopy(){
+      var ok = false;
+      var t = document.createElement("textarea");
+      t.value = shown; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.top = "-1000px"; t.style.opacity = "0";
+      document.body.appendChild(t);
+      try { t.focus(); t.select(); t.setSelectionRange(0, shown.length); ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(t);
+      return ok;
+    }
+    function copyCode(done){
+      function finish(ok){
+        if (ok) { status.textContent = "已複製"; }
+        else { selectCode(); status.textContent = "長按複製"; }
+        done(ok);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shown).then(function(){ finish(true); }, function(){ finish(legacyCopy()); });
+      } else {
+        finish(legacyCopy());
+      }
+    }
+    document.getElementById("copy").addEventListener("click", function(){ copyCode(function(){}); });
+
+    android.classList.add("hidden");
+    ios.classList.add("hidden");
+    var main = document.getElementById("main");
+    main.textContent = "複製邀請碼，前往 Google Play";
+    main.classList.remove("hidden");
+    var other = document.getElementById("other");
+    other.href = ios.href;
+    other.textContent = "用 iPhone？到 App Store 下載";
+    other.style.display = "inline-block";
+
+    // intent 裡是 market://details?…&referrer=…,Play 照樣記安裝來源;Chrome 沒有 Play 商店時走 browser_fallback_url(原本那條網址)。
+    var dest = "intent://details?id=com.mimicinephile.mimi&referrer=" + encodeURIComponent(referrer) +
+               "#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=" + encodeURIComponent(android.href) + ";end";
+    // 跳了 2.5 秒頁面還在前景 = 這個內建瀏覽器不肯開 Play 商店:教他換瀏覽器(碼已複製,不會白做)。
+    var left = false;
+    document.addEventListener("visibilitychange", function(){ if (document.hidden) left = true; });
+    window.addEventListener("pagehide", function(){ left = true; });
+    function go(){
+      left = false;
+      location.href = dest;
+      setTimeout(function(){
+        if (!left && !document.hidden) status.textContent = "沒有打開 Play 商店？請點右上角選單，選「用瀏覽器開啟」再按一次。";
+      }, 2500);
+    }
+
+    // 複製成功 → 0.6 秒後跳;複製失敗 → 不跳(碼已反白、提示「長按複製」),同一顆鈕再按一次就去商店。
+    var copyFailed = false;
+    main.addEventListener("click", function(){
+      if (copyFailed) { go(); return; }
+      copyCode(function(ok){
+        if (ok) { setTimeout(go, 600); }
+        else { copyFailed = true; main.textContent = "前往 Google Play"; }
+      });
+    });
   })();
 </script>
 </body>
