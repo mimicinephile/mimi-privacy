@@ -135,13 +135,37 @@
     other.textContent = isIOS ? "用 Android 手機？到 Google Play 下載" : "用 iPhone？到 App Store 下載";
     other.style.display = "inline-block";
 
+    // Android 主鈕不跳 play.google.com 網址,改用 intent:// 直接叫 Play 商店 App(2026-11-26 實機):
+    //   Telegram 這類 App 內建瀏覽器會把 play.google.com 當網頁開,在那頁按安裝,Play 拿不到 referrer → 碼帶不進 App
+    //   (同一條連結貼到 Chrome 開就帶得進)。intent 裡是 market://details?…&referrer=…,Play 照樣記安裝來源;
+    //   Chrome 沒有 Play 商店時走 browser_fallback_url(原本那條網址)。
+    // ⚠ intent 要使用者按下才放行,所以只用在這顆鈕;沒碼時的自動跳轉照舊用網址(同 go/share)。
+    var dest = store.href;
+    if (isAndroid) {
+      dest = "intent://details?id=com.mimicinephile.mimi&referrer=" + encodeURIComponent(referrer) +
+             "#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=" + encodeURIComponent(android.href) + ";end";
+    }
+    // 跳了 2.5 秒頁面還在前景 = 這個內建瀏覽器不肯開 Play 商店:教他換瀏覽器(碼已複製,不會白做)。
+    var left = false;
+    document.addEventListener("visibilitychange", function(){ if (document.hidden) left = true; });
+    window.addEventListener("pagehide", function(){ left = true; });
+    function go(){
+      left = false;
+      location.href = dest;
+      if (isAndroid) {
+        setTimeout(function(){
+          if (!left && !document.hidden) status.textContent = "沒有打開 Play 商店？請點右上角選單，選「用瀏覽器開啟」再按一次。";
+        }, 2500);
+      }
+    }
+
     // 複製成功 → 0.6 秒後跳(讓人看得到「已複製」);複製失敗 → 不跳(跳了碼就不見了),
     // 碼已反白、提示「長按複製」,同一顆鈕再按一次就直接去商店。
     var copyFailed = false;
     main.addEventListener("click", function(){
-      if (copyFailed) { location.href = store.href; return; }
+      if (copyFailed) { go(); return; }
       copyCode(function(ok){
-        if (ok) { setTimeout(function(){ location.href = store.href; }, 600); }
+        if (ok) { setTimeout(go, 600); }
         else { copyFailed = true; main.textContent = isIOS ? "前往 App Store" : "前往 Google Play"; }
       });
     });
